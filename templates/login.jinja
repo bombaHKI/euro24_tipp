@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>MS Website | VB22</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/alap.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/tipp/login.css') }}"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />    
+    <script src="{{ url_for('static',filename='scripts/tipp/alap.js') }}" defer></script>
+    <script src="{{ url_for('static',filename='scripts/tipp/login.js') }}" defer></script>
+</head>
+
+
+<body>
+    <h2>
+        VB22 Tippjáték
+    </h2>
+
+    <div id="fo-panel">
+        <form method="POST" id="login-form" class="aktiv">
+            <p>Van fiókja?<br><span onclick="changeActiveForm()">Belépés</span></p>
+            <div>
+                <div class="fedlapos-input">
+                    <input name="email" type="text" required>
+                    <label for="email"><span class="material-symbols-outlined">person</span>e-mail</label>
+                </div>
+                <div class="fedlapos-input">
+                    <input name="password"  type="password" value="" required>
+                    <label for="password"><span class="material-symbols-outlined">lock</span>jelszó</label>
+                </div>
+            </div>
+            <button class="gomb" name="submit" type="submit">Belépés</button>
+        </form>
+
+        <form method="POST" id="signup-form">
+            <p>Nincs fiókja?<br><span onclick="changeActiveForm()">Regisztráció</span></p>
+            <div class="inputok">
+                <div class="fedlapos-input">
+                    <input name="username" type="text" required>
+                    <label for="username"><span class="material-symbols-outlined">person</span>név</label>
+                </div>
+                <div class="fedlapos-input">
+                    <input name="email" type="text" required>
+                    <label for="email"><span class="material-symbols-outlined">mail</span>e-mail</label>
+                </div>
+            </div>
+            <button class="gomb" name="submit" type="submit">Regisztáció</button>
+        </form>
+    </div>
+
+
+
+
+    <a class="gomb" href="{{url_for('index')}}">Vissza</a>
+
+	<p id="error">Error</p>
+	<p id="message">Message</p>
+</body>
+</html>
