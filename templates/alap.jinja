@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+
+<head>
+	{% block head_elements %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>euro24 | tippjáték</title>
+	<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='media/favicon.png') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles/alap.css') }}"/>
+	<script src="{{ url_for('static',filename='scripts/alap.js') }}" defer></script>	
+	{% endblock head_elements %}
+</head>
+
+<body>
+	{% block content %}
+	<main>
+		<h1 id="udv-ujra">Üdv újra itt!</h1>
+	</main>
+	{% endblock %}
+
+	<p id="error">Error</p>
+	<p id="message">Message</p>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#fo-panel {
+    background: linear-gradient(355deg, white 30%, var(--neutral-color-light-blue) 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    overflow: clip;
+}
+
+form:first-child, #fedlap>div:last-child { padding: 5rem 2.5rem 5rem 3rem; }
+form:last-child, #fedlap>div:first-child { padding: 5rem 3rem 5rem 2.5rem; }
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+h2 {
+    margin: 0;
+    color: var(--dark-text-color);
+}
+
+.gomb {
+    padding: 0.7em 1em;
+    border-radius: 1.5em;
+    background-color: var(--primary-color-blue);
+    color: var(--light-text-color);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.gomb:hover {
+    background-color: transparent;
+    color: var(--primary-color-blue);
+    box-shadow: 0 0 10px var(--primary-color-blue);
+}
+
+.inputok {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-container label {
+    position: absolute;
+}
+
+.input-container input {
+    background-color: var(--neutral-color-light-gray);
+    border: 1px solid transparent;
+    transition: all .3s ease;
+    min-width: 30ch;
+}
+
+.input-container input:focus {
+    border-color: var(--primary-color-blue)
+}
+
+.input-container label {
+    border-radius: 2px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    position: absolute;
+    cursor: text;
+    top: 50%;
+    left: 1ch;
+    padding: 1px 3px; 
+    transform: translate(0,-50%);
+    color: var(--neutral-color-gray);
+    transition: .2s;
+}
+.input-container input:focus+label,
+.input-container input:valid+label {
+    border-color: var(--primary-color-blue);
+    background-color: var(--primary-color-blue);
+    color: var(--light-text-color);
+    font-size: .5em;
+    top: 0;
+}
+
+#fedlap, #fedlap h2 { 
+    color: var(--neutral-color-light-gray);
+}
+#fedlap {
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    left: 50%;
+    z-index: 1;
+    background-image: linear-gradient(20deg, var(--primary-color-blue), var(--secondary-color));
+    overflow: clip;
+    transition: .4s;
+    box-sizing: border-box;
+}
+
+.content {
+    box-sizing: border-box;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: .4s;
+}
+.content.for-signup {
+    left: -100%;
+}
+
+#fedlap.signup {
+    left: 0;
+}
+#fedlap.signup .for-signup {left: 0;}
+#fedlap.signup .for-signin {left: 100%;}
+
+span {
+    font-size: .7em;
+    color: var(--neutral-color-gray);
+}
+
+.switch-gomb {
+    font-size: .8em;
+    color: var(--neutral-color-blue);
+    padding: .3em 1.5ch;
+    border-radius: 1rem;
+    box-shadow: 0 0 3px var(--neutral-color-light-blue);
+    transition: .2s;
+}
+.switch-gomb:hover {
+    color: var(--primary-color-blue);
+    background-color: var(--neutral-color-blue);
+    box-shadow: none;
+}
+
+@media (max-width: 700px) {
+    #fo-panel {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    form {
+        gap: 1em;
+    }
+    #fo-panel form, #fo-panel #fedlap > div { 
+        padding: 2em; 
+        display: flex;
+        flex-direction: column;
+    }
+    form:first-child, #fedlap>div:last-child { justify-content: flex-end; }
+    #fedlap {
+        height: 50%;
+        width: 100%;
+        top: 50%;
+        left: 0;
+    }
+    #fedlap.signup {
+        top: 0;
+    }
+    .content {
+        top: 0;
+        left: 0;
+    }
+    .content.for-signup {
+        top: -100%;
+        left: 0;
+    }
+    
+    #fedlap.signup {
+        top: 0;
+        left: 0;
+    }
+    #fedlap.signup .for-signup {top: 0; left:0;}
+    #fedlap.signup .for-signin {top: 100%; left:0}
+
+}

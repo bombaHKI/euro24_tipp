@@ -1,61 +1,78 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="content-type" content="text/html" charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="UTF-8">
-	<title>MS Website | VB22</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/alap.css') }}"/>
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles/tipp/login.css') }}"/>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />    
-    <script src="{{ url_for('static',filename='scripts/tipp/alap.js') }}" defer></script>
-    <script src="{{ url_for('static',filename='scripts/tipp/login.js') }}" defer></script>
-</head>
+{% extends "alap.jinja" %}
 
+{% block head_elements %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}"/>
+{% endblock head_elements %}
 
-<body>
-    <h2>
-        VB22 Tippjáték
-    </h2>
+{% block content %}
+    <main>
+        <h2>
+            euro24 | tippjáték
+        </h2>
 
-    <div id="fo-panel">
-        <form method="POST" id="login-form" class="aktiv">
-            <p>Van fiókja?<br><span onclick="changeActiveForm()">Belépés</span></p>
-            <div>
-                <div class="fedlapos-input">
-                    <input name="email" type="text" required>
-                    <label for="email"><span class="material-symbols-outlined">person</span>e-mail</label>
+        <div id="fo-panel">
+            <form method="POST" id="login-form" class="aktiv">
+                <h2>Belépés</h2>
+                <div class="inputok">
+                    <div class="input-container">
+                        <input name="email" type="text" maxlength="90" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-container">
+                        <input name="password"  type="password" value="" maxlength="90" required>
+                        <label for="password">Jelszó</label>
+                    </div>
                 </div>
-                <div class="fedlapos-input">
-                    <input name="password"  type="password" value="" required>
-                    <label for="password"><span class="material-symbols-outlined">lock</span>jelszó</label>
+                <button class="gomb" name="submit" type="submit">Belépés</button>
+            </form>
+
+            <form method="POST" id="signup-form">
+                <h2>Jelentkezés</h2>
+                <div class="inputok">
+                    <div class="input-container">
+                        <input name="email" type="text" maxlength="90" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-container">
+                        <input name="username" type="text" maxlength="90" required>
+                        <label for="username">Név</label>
+                    </div>
+                </div>
+                <button class="gomb" name="submit" type="submit">Regisztáció</button>
+            </form>
+            <div id="fedlap">
+                <div class="content for-signin">
+                    <h2>Üdv újra!</h2>
+                    <p>Írja be felhasználónevét és jelszavát a bejelentkezéshez!</p>
+                    <div class="change-form">
+                        <span>Nincs még fiókja?</span><br>
+                        <button class="switch-gomb" onclick="switchForm()">Jelentkezés</button>
+                    </div>
+                </div>
+                <div class="content for-signup">
+                    <h2>Játszon Ön is!</h2>
+                    <p>Fiókját az adminisztrátor hozza létre, erről majd a megadott e-mail címen
+                    kap tájékoztatást.</p>
+                    <div class="change-form">
+                        <span>Van már fiókja?</span><br>
+                        <button class="switch-gomb" onclick="switchForm()">Bejelentkezés</button>
+                    </div>
                 </div>
             </div>
-            <button class="gomb" name="submit" type="submit">Belépés</button>
-        </form>
+        </div>
+    </main>
+    <script>
+        function labelClicked(event) {
+            const label = event.target;
+            label.parentElement.children[0].focus();
+        }
+        Array.from(document.getElementsByTagName("label")).forEach( label => {
+            label.addEventListener("click", labelClicked);
+        })
 
-        <form method="POST" id="signup-form">
-            <p>Nincs fiókja?<br><span onclick="changeActiveForm()">Regisztráció</span></p>
-            <div class="inputok">
-                <div class="fedlapos-input">
-                    <input name="username" type="text" required>
-                    <label for="username"><span class="material-symbols-outlined">person</span>név</label>
-                </div>
-                <div class="fedlapos-input">
-                    <input name="email" type="text" required>
-                    <label for="email"><span class="material-symbols-outlined">mail</span>e-mail</label>
-                </div>
-            </div>
-            <button class="gomb" name="submit" type="submit">Regisztáció</button>
-        </form>
-    </div>
-
-
-
-
-    <a class="gomb" href="{{url_for('index')}}">Vissza</a>
-
-	<p id="error">Error</p>
-	<p id="message">Message</p>
-</body>
-</html>
+        function switchForm() {
+            document.getElementById("fedlap").classList.toggle("signup");
+        }
+    </script>
+{% endblock content %}

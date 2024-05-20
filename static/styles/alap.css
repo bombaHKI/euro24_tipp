@@ -1,0 +1,100 @@
+:root {
+    --dark-text-color: #333;
+    --light-text-color: rgb(240, 240, 249);
+    --primary-color-blue: rgb(0, 0, 150);
+    --secondary-color: rgb(217, 25, 25);
+    --neutral-color-blue: #adb9ff;
+    --neutral-color-light-blue: #d8deff;
+    --neutral-color-light-gray: #ebebeb;
+    --neutral-color-gray: #a3a3a3;
+    --message-bg-color: rgba(36, 189, 5, 0.95);
+    --error-bg-color: rgba(255, 0, 0, 0.95);
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font-family: "Roboto" ,sans-serif;
+    color: var(--rozsaszin);    
+    background-image: linear-gradient(
+        175deg,
+        white 30%,
+        var(--neutral-color-blue) 100%
+    );
+    background-attachment: fixed;
+}
+
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+input[type="text"], input[type="password"] {
+    background-color: var(--neutral-color-light-gray);
+    color: var(--dark-text-color);
+    border: none;
+    outline: none;
+    padding: .7em 2ch;
+}
+
+/*#region modals---------------------------------{*/
+    p#error,
+    p#message {
+        color: var(--light-text-color);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .5s, visibility 0s .5s;
+        z-index: 10;
+        position: fixed;
+        text-align: center;
+        background-color: var(--error-bg-color);
+        box-shadow: 0 0 2px red, 0 0 6px red;
+        padding: 1em;
+        bottom: 1em;
+        left: 1em;
+        max-width: calc(100% -4em);
+        transform-origin: left;
+        overflow: hidden;
+    }
+    p#error.visible,
+    p#message.visible {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 0s;
+        animation: msgSlideIn cubic-bezier(.73,1.85,.72,.72) .3s;
+    }
+    p#message {
+        background-color: var(--message-bg-color);
+        box-shadow: 0 0 2px rgb(29, 248, 0), 0 0 6px rgb(20, 168, 0);
+    }
+    p#error::after,
+    p#message::after {
+        position: absolute;
+        height: 3px;
+        background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7) 90%, transparent);
+        content: "";
+        top: 0;
+        left: 0;
+    }
+    p#error.visible::after,
+    p#message.visible::after {
+        animation: indicatorSlide 2s forwards;
+    }
+    @keyframes indicatorSlide {
+        from { width: 0; }
+        to { width: 110%; }
+    }
+    @keyframes msgSlideIn {
+        from { translate: -100%; }
+        to { translate: 0; }
+    }
+    /* #endregion } */
+    
+
