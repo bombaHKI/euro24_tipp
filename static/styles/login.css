@@ -43,7 +43,7 @@ h2 {
     cursor: pointer;
 }
 
-.gomb:hover {
+.gomb:hover, .gomb:focus-visible {
     background-color: transparent;
     color: var(--primary-color-blue);
     box-shadow: 0 0 10px var(--primary-color-blue);
@@ -122,13 +122,14 @@ h2 {
 }
 .content.for-signup {
     left: -100%;
+    visibility: hidden;
 }
 
 #fedlap.signup {
     left: 0;
 }
-#fedlap.signup .for-signup {left: 0;}
-#fedlap.signup .for-signin {left: 100%;}
+#fedlap.signup .for-signup {left: 0; visibility: visible;}
+#fedlap.signup .for-signin {left: 100%; visibility: hidden;}
 
 span {
     font-size: .7em;
@@ -143,7 +144,7 @@ span {
     box-shadow: 0 0 3px var(--neutral-color-light-blue);
     transition: .2s;
 }
-.switch-gomb:hover {
+.switch-gomb:hover, .switch-gomb:focus-visible {
     color: var(--primary-color-blue);
     background-color: var(--neutral-color-blue);
     box-shadow: none;
@@ -187,5 +188,4 @@ span {
     }
     #fedlap.signup .for-signup {top: 0; left:0;}
     #fedlap.signup .for-signin {top: 100%; left:0}
-
 }

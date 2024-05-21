@@ -15,7 +15,7 @@ class User(UserMixin, Base):
     user_id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False, unique=True)
-    password_hash = Column(String(100),  nullable=False)
+    password_hash = Column(String(255),  nullable=False)
     points = Column(Integer, default=0)
     bets = relationship("Bet", backref=backref("user"))
     followings = relationship(
