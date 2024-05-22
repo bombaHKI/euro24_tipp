@@ -1,14 +1,39 @@
 :root {
-    --dark-text-color: #333;
-    --light-text-color: rgb(240, 240, 249);
-    --primary-color-blue: rgb(0, 0, 150);
-    --secondary-color: rgb(217, 25, 25);
-    --neutral-color-blue: #adb9ff;
-    --neutral-color-light-blue: #d8deff;
-    --neutral-color-light-gray: #ebebeb;
-    --neutral-color-gray: #a3a3a3;
-    --message-bg-color: rgba(36, 189, 5, 0.95);
-    --error-bg-color: rgba(255, 0, 0, 0.95);
+    --text1: rgb(51, 51, 51);
+    --text2: rgb(245, 245, 245);
+    --text3: rgb(210, 210, 210);
+    --text4: rgb(180, 180, 180);
+    --text5: rgb(150, 150, 150);
+    --main1: rgb(0, 0, 150);
+    --main1_2: #adb9ff;
+    --main2: rgb(217, 25, 25);
+    --bg-from: rgb(250, 250, 248);
+    --bg-to: rgb(216, 222, 255);
+
+    --message-bg-color: rgb(36, 189, 5);
+    --message-box-shadow: rgb(29, 248, 0);
+    --error-bg-color: rgb(255, 0, 0);
+    --error-box-shaow: rgb(255, 0, 0);
+}
+
+[data-theme="dark"] {
+    --dark-primary-bg: #121212;
+    --dark-primary-text: #ffffff;
+    --dark-secondary-bg: #1e1e1e;
+    --dark-secondary-text: #bbbbbb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: inherit;
+    color: inherit;
+}
+
+html {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 html, body {
@@ -18,11 +43,11 @@ html, body {
 
 body {
     font-family: "Roboto" ,sans-serif;
-    color: var(--rozsaszin);    
+    color: var(--text1);    
     background-image: linear-gradient(
         175deg,
-        white 30%,
-        var(--neutral-color-blue) 100%
+        var(--bg-from) 30%,
+        var(--bg-to) 100%
     );
     background-attachment: fixed;
 }
@@ -38,7 +63,7 @@ button, input[type="submit"], input[type="reset"] {
 }
 input[type="text"], input[type="password"] {
     background-color: var(--neutral-color-light-gray);
-    color: var(--dark-text-color);
+    color: var(--text1);
     border: none;
     outline: none;
     padding: .7em 2ch;
@@ -47,15 +72,15 @@ input[type="text"], input[type="password"] {
 /*#region modals---------------------------------{*/
     p#error,
     p#message {
-        color: var(--light-text-color);
+        color: var(--text2);
         visibility: hidden;
         opacity: 0;
         transition: opacity .5s, visibility 0s .5s;
-        z-index: 10;
+        z-index: 11;
         position: fixed;
         text-align: center;
         background-color: var(--error-bg-color);
-        box-shadow: 0 0 2px red, 0 0 6px red;
+        box-shadow: 0 0 2px var(--error-box-shaow), 0 0 6px var(--error-box-shaow);
         padding: 1em;
         bottom: 1em;
         left: 1em;
@@ -72,7 +97,7 @@ input[type="text"], input[type="password"] {
     }
     p#message {
         background-color: var(--message-bg-color);
-        box-shadow: 0 0 2px rgb(29, 248, 0), 0 0 6px rgb(20, 168, 0);
+        box-shadow: 0 0 2px var(--message-box-shadow), 0 0 6px var(--message-box-shadow);
     }
     p#error::after,
     p#message::after {

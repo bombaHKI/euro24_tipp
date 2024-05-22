@@ -7,7 +7,7 @@ main {
 }
 
 #fo-panel {
-    background: linear-gradient(355deg, white 30%, var(--neutral-color-light-blue) 100%);
+    background: linear-gradient(355deg, var(--bg-from) 30%, var(--bg-to) 100%);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.2);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -31,22 +31,21 @@ form {
 
 h2 {
     margin: 0;
-    color: var(--dark-text-color);
 }
 
 .gomb {
     padding: 0.7em 1em;
     border-radius: 1.5em;
-    background-color: var(--primary-color-blue);
-    color: var(--light-text-color);
+    background-color: var(--main1);
+    color: var(--text2);
     transition: .2s;
     cursor: pointer;
 }
 
 .gomb:hover, .gomb:focus-visible {
     background-color: transparent;
-    color: var(--primary-color-blue);
-    box-shadow: 0 0 10px var(--primary-color-blue);
+    color: var(--main1);
+    box-shadow: 0 0 10px var(--main1);
 }
 
 .inputok {
@@ -64,14 +63,14 @@ h2 {
 }
 
 .input-container input {
-    background-color: var(--neutral-color-light-gray);
+    background-color: var(--text3);
     border: 1px solid transparent;
     transition: all .3s ease;
     min-width: 30ch;
 }
 
 .input-container input:focus {
-    border-color: var(--primary-color-blue)
+    border-color: var(--main1)
 }
 
 .input-container label {
@@ -84,35 +83,34 @@ h2 {
     left: 1ch;
     padding: 1px 3px; 
     transform: translate(0,-50%);
-    color: var(--neutral-color-gray);
+    color: var(--text5);
     transition: .2s;
 }
 .input-container input:focus+label,
 .input-container input:valid+label {
-    border-color: var(--primary-color-blue);
-    background-color: var(--primary-color-blue);
-    color: var(--light-text-color);
+    border-color: var(--main1);
+    background-color: var(--main1);
+    color: var(--text3);
     font-size: .5em;
     top: 0;
 }
 
-#fedlap, #fedlap h2 { 
-    color: var(--neutral-color-light-gray);
+#fedlap h2 {
+    color: var(--text3);
 }
 #fedlap {
+    color: var(--text4);
     position: absolute;
     height: 100%;
     width: 50%;
     left: 50%;
     z-index: 1;
-    background-image: linear-gradient(20deg, var(--primary-color-blue), var(--secondary-color));
+    background-image: linear-gradient(20deg, var(--main1), var(--main2));
     overflow: clip;
     transition: .4s;
-    box-sizing: border-box;
 }
 
 .content {
-    box-sizing: border-box;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -133,20 +131,20 @@ h2 {
 
 span {
     font-size: .7em;
-    color: var(--neutral-color-gray);
+    color: var(--text5);
 }
 
 .switch-gomb {
     font-size: .8em;
-    color: var(--neutral-color-blue);
+    color: var(--main1_2);
     padding: .3em 1.5ch;
     border-radius: 1rem;
-    box-shadow: 0 0 3px var(--neutral-color-light-blue);
+    box-shadow: 0 0 3px var(--main1_2);
     transition: .2s;
 }
 .switch-gomb:hover, .switch-gomb:focus-visible {
-    color: var(--primary-color-blue);
-    background-color: var(--neutral-color-blue);
+    color: var(--main1);
+    background-color: var(--main1_2);
     box-shadow: none;
 }
 

@@ -1,0 +1,89 @@
+#udv-ujra {
+    margin-top: max(20%, 2rem);
+    text-align: center;
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+header {
+    width: 100%;
+    top: 0;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text3);
+    background-image: linear-gradient(20deg,var(--main1) 30%, var(--main2));
+    z-index: 10;
+}
+
+#nagymenu {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+}
+header #hamburger-ikon {
+    display: none;
+}
+
+.menunyito {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+}
+
+#user-menu {
+    top: 100%;
+    right: 0;
+    min-width: 100%;
+    white-space: nowrap;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+#user-menu a {
+    justify-content: flex-end;
+}
+.menunyito > a:hover + #user-menu,
+.menunyito > a:focus-within + #user-menu {
+    display: flex;
+}
+#user-menu:hover {
+    display: flex;
+}
+
+@media only screen and (max-width: 550px) {
+    #nagymenu {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(2px);
+        display: none;
+        height: auto;
+    }
+    #nagymenu a {
+        justify-content: flex-start;
+    }
+    header #hamburger-ikon {
+        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .menunyito > a:hover + #nagymenu,
+    .menunyito > a:focus-within + #nagymenu {
+        display: flex;
+    }
+    #nagymenu:hover {
+        display: flex;        
+    }
+}

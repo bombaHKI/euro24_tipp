@@ -5,6 +5,7 @@ import json
 import os
 from sema import User, Candidate
 from db import session
+from send_email import send_email
 
 def create_app():
    config = json.load(open(os.path.join(os.path.dirname(__file__), 'data/config.json'), 'r', encoding='utf-8'))
@@ -24,8 +25,9 @@ def create_app():
 app = create_app()
 
 @app.route("/")
+@login_required
 def index():
-   return render_template("alap.jinja")
+   return render_template("alap_header.jinja")
 
 @app.route("/login", methods=["GET","POST"])
 def login():
@@ -55,10 +57,31 @@ def login():
                               email=email))
          session.commit()
          message = "Sikeres jelentkezés!"
+         send_email(email,name,"at_signup")
    if error != None:
       return {"response": error, "type": "error"}
    else:
       return {"response": message, "type": "message"}
+
+@app.route("/szabalyok")
+@login_required
+def szabalyok():
+   return render_template("alap_header.jinja")
+
+@app.route("/meccsek")
+@login_required
+def meccsek():
+   return render_template("alap_header.jinja")
+
+@app.route("/allas")
+@login_required
+def allas():
+   return render_template("alap_header.jinja")
+
+@app.route("/profil")
+@login_required
+def profil():
+   return render_template("alap_header.jinja")
 
 if __name__ == "__main__":
    app.run(debug=True)
