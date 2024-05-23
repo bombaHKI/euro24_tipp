@@ -2,4 +2,4 @@ __pycache__
 .venv
 data/config.json
 data/email_user_info.json
-#data/adatok.sqlite
+data/adatok.sqlite

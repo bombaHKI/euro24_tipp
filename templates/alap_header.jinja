@@ -3,6 +3,7 @@
 {% block head_elements %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/header.css') }}"/>
+	<script src="{{ url_for('static',filename='scripts/header.js') }}" defer></script>
 {% endblock head_elements %}
 
 
@@ -13,33 +14,48 @@
 ] -%}
 
 {% set account_options = [
-    ('Profil', 'profil')
+    ('Profil', 'profil'),
+    ('Kijelentkezés', 'logout')
 ] -%}
 
 
 {% block body_content %}
-	<header>
-		<div class="menunyito">
-			<a class="gomb">
-				<h2>{{ current_user.name }}</h2>
-			</a>
-			<div id="user-menu">
-				{% for caption, func in account_options %}
-				<a  class="gomb" 
-				href="{{url_for(func)}}">{{ caption }}</a>
+	<header class="small-header">
+		<div id="main-nav">
+			{% for caption, func in nav_options %}
+			 <a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+			{% endfor %}
+		</div>
+
+		<span id="logo">
+			euro24<img src="{{ url_for('static', filename='media/logo_mini.png')}}">tippjáték
+		</span>
+
+		<div id="user-menu" class="menu">
+			<span class="menu-gomb">{{current_user.name}}</span>
+			<div class="dropdown-blur-layer"></div>
+			<div class="dropdown">
+				{% for caption, func in account_options %}				
+					<a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
 				{% endfor %}
 			</div>
 		</div>
 
-		<div class="menunyito">
-			<a class="gomb" id="hamburger-ikon">
-				menu
-			</a>
-			<div  id="nagymenu">				
-			{% for caption, func in nav_options %}				
-				<a  class="gomb" 
-				href="{{url_for(func)}}">{{ caption }}</a>
-			{% endfor %}
+		<div id="hamburger-menu" class="menu">
+			<svg class="menu-gomb" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path class="line line1" d="M 4 6 10 6 16 6"/>
+                <path class="line line2" d="M 4 10 16 10 16 10 4 10 4 10"/>
+                <path class="line line3" d="M 4 14 10 14 16 14"/>
+            </svg>
+			<div class="dropdown-blur-layer"></div>
+			<div id="hamburger-menu-dropdown" class="dropdown">				
+				{% for caption, func in nav_options %}
+					<a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+				{% endfor %}
+				<hr>
+				{% for caption, func in account_options %}				
+					<a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+				{% endfor %}
 			</div>
 		</div>
 	</header>

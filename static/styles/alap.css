@@ -34,9 +34,6 @@
 html {
     overflow-y: scroll;
     scroll-behavior: smooth;
-}
-
-html, body {
     margin: 0;
     height: 100%;
 }
@@ -122,4 +119,7 @@ input[type="text"], input[type="password"] {
     }
     /* #endregion } */
     
-
+#udv-ujra {
+    margin-top: max(20%, 2rem);
+    text-align: center;
+}
