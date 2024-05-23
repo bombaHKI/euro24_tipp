@@ -23,7 +23,8 @@
 	<header class="small-header">
 		<div id="main-nav">
 			{% for caption, func in nav_options %}
-			 <a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+			 <a class="header-gomb {% if caption == current_page %}current-page{% endif %}" 
+			 href="{{url_for(func)}}">{{ caption }}</a>
 			{% endfor %}
 		</div>
 
@@ -36,7 +37,8 @@
 			<div class="dropdown-blur-layer"></div>
 			<div class="dropdown">
 				{% for caption, func in account_options %}				
-					<a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+					<a class="header-gomb {% if caption == current_page %}current-page{% endif %}"
+					href="{{url_for(func)}}">{{ caption }}</a>
 				{% endfor %}
 			</div>
 		</div>
@@ -50,11 +52,13 @@
 			<div class="dropdown-blur-layer"></div>
 			<div id="hamburger-menu-dropdown" class="dropdown">				
 				{% for caption, func in nav_options %}
-					<a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+					<a class="header-gomb {% if caption == current_page %}current-page{% endif %}"
+					href="{{url_for(func)}}">{{ caption }}</a>
 				{% endfor %}
 				<hr>
 				{% for caption, func in account_options %}				
-					<a class="header-gomb" href="{{url_for(func)}}">{{ caption }}</a>
+					<a class="header-gomb {% if caption == current_page %}current-page{% endif %}" 
+					href="{{url_for(func)}}">{{ caption }}</a>
 				{% endfor %}
 			</div>
 		</div>

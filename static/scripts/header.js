@@ -43,7 +43,6 @@ function headerClassDecider() {
     const userMenu = document.getElementById("user-menu");
     
     header.classList.remove("small-header");
-    console.log(userMenu.getBoundingClientRect().left, logo.getBoundingClientRect().right);
     if ( Math.max( (userMenu.getBoundingClientRect().left - logo.getBoundingClientRect().right),
                     (logo.getBoundingClientRect().left - mainNav.getBoundingClientRect().right)) < 30)
         header.classList.add("small-header");

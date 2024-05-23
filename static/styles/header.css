@@ -72,9 +72,13 @@ header {
     background-color: var(--bg-to);
     transition: transform .2s;
 }
-.header-gomb:hover::after {
+.header-gomb:hover::after,
+.header-gomb.current-page::after {
     transform: scale(1);
     transform-origin: left;
+}
+.header-gomb.current-page::after {
+    background-color: var(--main1_2);
 }
 
 .dropdown {

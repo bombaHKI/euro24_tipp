@@ -66,7 +66,7 @@ def login():
 @app.route("/szabalyok")
 @login_required
 def szabalyok():
-   return render_template("alap_header.jinja")
+   return render_template("szabalyok.jinja")
 
 @app.route("/meccsek")
 @login_required

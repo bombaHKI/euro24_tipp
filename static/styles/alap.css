@@ -49,6 +49,10 @@ body {
     background-attachment: fixed;
 }
 
+main {
+    margin-top: 4rem;
+}
+
 button, input[type="submit"], input[type="reset"] {
 	background: none;
 	color: inherit;
@@ -120,6 +124,5 @@ input[type="text"], input[type="password"] {
     /* #endregion } */
     
 #udv-ujra {
-    margin-top: max(20%, 2rem);
     text-align: center;
 }
