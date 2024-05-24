@@ -35,6 +35,19 @@ Array.from(document.getElementsByClassName("dropdown-blur-layer")).forEach( el =
         event.target.parentElement.classList.remove("active");
     });
 });
+Array.from(document.querySelectorAll(
+    'input:not(.menu .header-gomb), \
+    select:not(.menu .header-gomb), \
+    textarea:not(.menu .header-gomb), \
+    button:not(.menu .header-gomb), \
+    a:not(.menu .header-gomb), \
+    [tabindex]:not(.menu .header-gomb), \
+    [contenteditable]:not(.menu .header-gomb)'
+  )).forEach( el => el.addEventListener("focus", () => {
+    Array.from(document.getElementsByClassName("menu")).forEach(menu => {
+        menu.classList.remove("active");
+    });
+  }));
 
 function headerClassDecider() {
     const header = document.getElementsByTagName("header")[0];

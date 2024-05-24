@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 import json
 import os
 from sema import User, Candidate
@@ -34,11 +34,10 @@ def login():
    if request.method == "GET":
       return render_template("login.jinja")
 
-   #TODO: SZERVER OLDALI TESZTEK: EMAIL HELYES-E (REGEX) FELHASZNÁLÓNÉV SPACE STB.
    error = None
    message = None
    formJSON = request.json
-   email = formJSON["email"]
+   email = formJSON["email"].strip()
    if formJSON["action"] == "login":
       user = User.query.filter(User.email == email).first()
       if user == None or \
@@ -47,17 +46,17 @@ def login():
       else:
          login_user(user)
    elif formJSON["action"] == "signup":
-      name =  formJSON["username"]
+      name =  formJSON["username"].strip()
       if User.query.filter(User.email == email).first() != None:
          error = "Ezzel az e-amil címmel már létezik fiók!"
       elif Candidate.query.filter(Candidate.email == email).first() != None:
          error = "Ezzel az e-amil címmel már jelentkeztek!"
       else:
-         session.add(Candidate(name=name,
-                              email=email))
+         candidate = Candidate(name=name, email=email)
+         session.add(candidate)
          session.commit()
          message = "Sikeres jelentkezés!"
-         send_email(email,name,"at_signup")
+         send_email(candidate,"at_signup")
    if error != None:
       return {"response": error, "type": "error"}
    else:
@@ -73,15 +72,42 @@ def szabalyok():
 def meccsek():
    return render_template("alap_header.jinja")
 
-@app.route("/allas")
+@app.route("/allas", methods=["GET","POST"])
 @login_required
 def allas():
    return render_template("alap_header.jinja")
 
-@app.route("/profil")
+@app.route("/profil", methods=["GET","POST"])
 @login_required
 def profil():
-   return render_template("alap_header.jinja")
+   if request.method == "GET":
+      return render_template("profil.jinja")
+
+   error = None
+   formJSON = request.json
+   password = formJSON["password"]
+   if not check_password_hash(current_user.password_hash, password):
+      error = "Rossz jelszó!"
+   elif formJSON["action"] == "data-change":
+      current_user.name = formJSON["username"].strip()
+      current_user.email =  formJSON["email"].strip()
+      
+   elif formJSON["action"] == "password-change":
+      newPass =  formJSON["new-password"]
+      confPass = formJSON["confirm-password"]
+      if newPass != confPass:
+         error = "Jelszó megerősítése nem egyezik!"
+      else:
+         current_user.password_hash = generate_password_hash(newPass)
+
+   if error == None:
+      try:
+         session.commit()
+         send_email(current_user,"at_data_change")
+         return {"response": "Sikeres módosítás!", "type": "message"}
+      except:
+         error = "Valami hiba történt!"
+   return {"response": error, "type": "error"}
 
 @app.route("/logout")
 def logout():

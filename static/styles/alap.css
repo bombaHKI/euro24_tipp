@@ -9,11 +9,11 @@
     --main2: rgb(217, 25, 25);
     --bg-from: rgb(250, 250, 248);
     --bg-to: rgb(216, 222, 255);
+    --blur1: rgba(0, 0, 0, 0.1);
+    --blur2: rgba(0, 0, 0, 0.2);
 
     --message-bg-color: rgb(36, 189, 5);
-    --message-box-shadow: rgb(29, 248, 0);
     --error-bg-color: rgb(255, 0, 0);
-    --error-box-shaow: rgb(255, 0, 0);
 }
 
 [data-theme="dark"] {
@@ -62,7 +62,8 @@ button, input[type="submit"], input[type="reset"] {
 	cursor: pointer;
 	outline: inherit;
 }
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"],
+input[type="email"] {
     background-color: var(--neutral-color-light-gray);
     color: var(--text1);
     border: none;
@@ -81,7 +82,7 @@ input[type="text"], input[type="password"] {
         position: fixed;
         text-align: center;
         background-color: var(--error-bg-color);
-        box-shadow: 0 0 2px var(--error-box-shaow), 0 0 6px var(--error-box-shaow);
+        border-radius: 5px;
         padding: 1em;
         bottom: 1em;
         left: 1em;
@@ -98,13 +99,12 @@ input[type="text"], input[type="password"] {
     }
     p#message {
         background-color: var(--message-bg-color);
-        box-shadow: 0 0 2px var(--message-box-shadow), 0 0 6px var(--message-box-shadow);
     }
     p#error::after,
     p#message::after {
         position: absolute;
         height: 3px;
-        background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7) 90%, transparent);
+        background-image: linear-gradient(to right, transparent -10%, var(--text2) 90%, transparent);
         content: "";
         top: 0;
         left: 0;
