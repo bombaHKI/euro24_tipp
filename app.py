@@ -1,16 +1,14 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
 import json
-import os
 from sema import User, Candidate
 from db import session
 from send_email import send_email
+from config import appConfigJson
 
 def create_app():
-   config = json.load(open(os.path.join(os.path.dirname(__file__), 'data/config.json'), 'r', encoding='utf-8'))
    app = Flask(__name__)
-   app.config["SECRET_KEY"] = config["SECRET_KEY"]
+   app.config["SECRET_KEY"] = appConfigJson["SECRET_KEY"]
 
    login_manager = LoginManager()
    login_manager.login_view = "login"
@@ -41,7 +39,7 @@ def login():
    if formJSON["action"] == "login":
       user = User.query.filter(User.email == email).first()
       if user == None or \
-         not check_password_hash(user.password_hash, formJSON["password"]):
+         not user.check_password(formJSON["password"]):
          error = "Jelszó vagy email nem stimmelt!"
       else:
          login_user(user)
@@ -86,7 +84,7 @@ def profil():
    error = None
    formJSON = request.json
    password = formJSON["password"]
-   if not check_password_hash(current_user.password_hash, password):
+   if not current_user.check_password(password):
       error = "Rossz jelszó!"
    elif formJSON["action"] == "data-change":
       current_user.name = formJSON["username"].strip()
@@ -98,7 +96,7 @@ def profil():
       if newPass != confPass:
          error = "Jelszó megerősítése nem egyezik!"
       else:
-         current_user.password_hash = generate_password_hash(newPass)
+         current_user.set_password(newPass)
 
    if error == None:
       try:

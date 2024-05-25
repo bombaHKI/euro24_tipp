@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Table, UniqueConstraint
+from sqlalchemy import Column, Boolean, Integer, String, DateTime, ForeignKey, Table, UniqueConstraint
 from sqlalchemy.orm import relationship, backref, declarative_base
+from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 
 Base = declarative_base()
@@ -15,7 +16,8 @@ class User(UserMixin, Base):
     user_id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False, unique=True)
-    password_hash = Column(String(255),  nullable=False)
+    password_hash = Column(String(255),  nullable=False)    
+    is_admin = Column(Boolean, default=False)
     points = Column(Integer, default=0)
     bets = relationship("Bet", backref=backref("user"))
     followings = relationship(
@@ -25,6 +27,13 @@ class User(UserMixin, Base):
         secondaryjoin=user_id == Follow.c.whom_id,
         backref="followers",
     )
+
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
     
     def get_id(self):
            return (self.user_id)

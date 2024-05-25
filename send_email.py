@@ -4,14 +4,12 @@ import smtplib # Import smtplib for the actual sending function
 from email.mime.text import MIMEText # Import the email modules we'll need
 from email.mime.multipart import MIMEMultipart
 from sema import User, Candidate
+from config import emailJson
 
 # Email account credentials
-# Email account credentials
-sender_json_path = os.path.join(os.path.dirname(__file__), 'data/email_user_info.json')
-with open(sender_json_path, 'r', encoding='utf-8') as f:
-    senderJson = json.load(f)
-sender_email = senderJson["address"]
-password = senderJson["app-password"]
+
+sender_email = emailJson["address"]
+password = emailJson["app-password"]
 
 def send_email(person, message_file_name):
     message_path = os.path.join(os.path.dirname(__file__),
