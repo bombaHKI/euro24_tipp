@@ -2,9 +2,11 @@ import json
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash
-from datetime import datetime
-from sema import Base, Team, User, Candidate
+from datetime import datetime, timezone
 import os
+import requests
+from config import apiJson
+from sema import Base, Team, User, Candidate, Match
 
 db_path = os.path.join(os.path.dirname(__file__), 'data/adatok.sqlite')
 engine = sa.create_engine('sqlite:///' + db_path)
@@ -25,9 +27,31 @@ def read_teams():
 def init_db():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
-    for t in read_teams():
-        session.add(Team(name=t["name"],
-                        team_id=t["team_id"]))
+    for team in read_teams():
+        session.add(Team(name=team["name"],
+                        team_id=team["team_id"]))
+
+    response = requests.get(apiJson["base-url"]+"/matches", headers=apiJson["headers"])
+    if response.status_code == 200:
+        data = response.json()
+        matches = data.get("matches", [])
+        for match in matches:
+            new_match = Match(
+                match_id = match["id"],
+                team_H_id = match["homeTeam"]["id"],
+                team_A_id = match["awayTeam"]["id"],
+                start_date = datetime.strptime(match["utcDate"][:-1], "%Y-%m-%dT%H:%M:%S"),
+                odds_H = match["odds"]["homeWin"],
+                odds_X = match["odds"]["draw"],
+                odds_A = match["odds"]["awayWin"],
+                goals_H = match["score"]["fullTime"]["home"],
+                goals_A = match["score"]["fullTime"]["away"]
+            )
+            session.add(new_match)
+        session.commit()
+    else:
+        print(f"Failed to retrieve data. Status code: {response.status_code}")
+        print(response.json())
         
     admin = User(name="Haála Kada",
                  email="kadus@kadus.com",
@@ -42,3 +66,4 @@ def init_db():
     for i in range(20):
         session.add(Candidate(name=("Kada"+str(i)),email=str(i)+"@asd.com"))
     session.commit()
+

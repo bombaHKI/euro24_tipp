@@ -117,8 +117,8 @@ class Bet(Base):
 class Match(Base):
     __tablename__ = "match"
     match_id = Column(Integer, primary_key=True)
-    team_H_id = Column(Integer, ForeignKey("team.team_id"), nullable=False)
-    team_A_id = Column(Integer, ForeignKey("team.team_id"), nullable=False)
+    team_H_id = Column(Integer, ForeignKey("team.team_id"), nullable=True)
+    team_A_id = Column(Integer, ForeignKey("team.team_id"), nullable=True)
     start_date = Column(DateTime)
     odds_H = Column(Integer)
     odds_X = Column(Integer)
