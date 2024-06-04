@@ -8,7 +8,7 @@ main {
 
 #fo-panel {
     background: linear-gradient(355deg, var(--bg-from) 30%, var(--bg-to) 100%);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px var(--blur4), 0 0 30px var(--blur2);
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-top: 1rem;
@@ -35,7 +35,7 @@ form {
     border-radius: 1.5em;
     background-color: var(--main1);
     color: var(--text2);
-    transition: .2s;
+    transition: .3s;
     cursor: pointer;
 }
 
@@ -49,47 +49,6 @@ form {
     display: flex;
     flex-direction: column;
     gap: 1em;
-}
-
-.input-container {
-    position: relative;
-}
-
-.input-container label {
-    position: absolute;
-}
-
-.input-container input {
-    background-color: var(--text3);
-    border: 1px solid transparent;
-    transition: all .3s ease;
-    min-width: 30ch;
-}
-
-.input-container input:focus {
-    border-color: var(--main1)
-}
-
-.input-container label {
-    border-radius: 2px;
-    border: 1px solid transparent;
-    background-color: transparent;
-    position: absolute;
-    cursor: text;
-    top: 50%;
-    left: 1ch;
-    padding: 1px 3px; 
-    transform: translate(0,-50%);
-    color: var(--text5);
-    transition: .2s;
-}
-.input-container input:focus + label,
-.input-container input.non-empty + label {
-    border-color: var(--main1);
-    background-color: var(--main1);
-    color: var(--text3);
-    font-size: .5em;
-    top: 0;
 }
 
 #fedlap h2 {

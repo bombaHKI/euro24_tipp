@@ -149,7 +149,7 @@ class Match(Base):
                 "odds_A": self.odds_A,
                 "goals_H": self.goals_H,
                 "goals_A": self.goals_A}
-    
+
 class Team(Base): 
     __tablename__ = "team"
     team_id = Column(Integer, primary_key=True)

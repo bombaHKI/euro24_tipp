@@ -8,12 +8,12 @@
 
 
 {% set nav_options = [
-    ('Szabályok', 'szabalyok'),
-    ('Meccsek', 'meccsek'),
-    ('Állás', 'allas')
+    ('Felhasználók', 'admin.users'),
+    ('Meccsek', 'admin.meccsek')
 ] -%}
 
 {% set account_options = [
+    ('Játék oldal', 'index'),
     ('Profil', 'profil'),
     ('Kijelentkezés', 'logout')
 ] -%}
@@ -36,9 +36,6 @@
 			<a class="menu-gomb" href="#/">{{current_user.name}}</a>
 			<div class="dropdown-blur-layer"></div>
 			<div class="dropdown">
-				{% if current_user.is_admin %}
-					<a class="header-gomb" href="{{url_for('admin.index')}}">Admin oldal</a>
-				{% endif %}
 				{% for caption, func in account_options %}				
 					<a class="header-gomb {% if caption == current_page %}current-page{% endif %}"
 					href="{{url_for(func)}}">{{ caption }}</a>
@@ -59,9 +56,6 @@
 					href="{{url_for(func)}}">{{ caption }}</a>
 				{% endfor %}
 				<hr>
-				{% if current_user.is_admin %}
-					<a class="header-gomb" href="{{url_for('admin.index')}}">Admin oldal</a>
-				{% endif %}
 				{% for caption, func in account_options %}				
 					<a class="header-gomb {% if caption == current_page %}current-page{% endif %}" 
 					href="{{url_for(func)}}">{{ caption }}</a>
@@ -72,7 +66,7 @@
 
 	{% block main_content %}
         <main>
-            <h1 id="udv-ujra">Jó újra itt látni {{ current_user.name -}} !</h1>
+            <h1 id="udv-ujra">{{ current_user.name }} mint adminisztrátor!</h1>
         </main>
 	{% endblock main_content %}
 {% endblock body_content %}

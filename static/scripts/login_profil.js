@@ -1,28 +1,7 @@
-function labelClicked(event) {
-    const label = event.target;
-    label.parentElement.children[0].focus();
-}
-Array.from(document.getElementsByTagName("label")).forEach( label => {
-    label.addEventListener("click", labelClicked);
-});
 const fedlap = document.getElementById("fedlap");
 function switchForm() {
     fedlap.classList.toggle("signup");
 }
-
-// input üres -> label felemel
-Array.from(document.querySelectorAll(".input-container input")).forEach( input => {
-    input.classList.toggle("non-empty",
-        input.value !== ""
-    );
-    input.addEventListener("input", (ev) => {
-        const inp = ev.target;
-        inp.classList.toggle("non-empty",
-            inp.value !== ""
-        );
-    });    
-});
-
 
 const loginForm = document.getElementById("login-form");
 if (loginForm) {

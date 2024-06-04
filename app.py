@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-import json
 from sema import User, Candidate
 from db import session
 from send_email import send_email
 from config import appConfigJson
+from admin import admin_bp
 
 def create_app():
    app = Flask(__name__)
@@ -14,9 +14,10 @@ def create_app():
    login_manager.login_view = "login"
    login_manager.init_app(app)
 
+   app.register_blueprint(admin_bp)
+
    @login_manager.user_loader
    def load_user(user_id):
-      # since the user_id is just the primary key of our user table, use it in the query for the user
       return User.query.get(int(user_id))
 
    return app

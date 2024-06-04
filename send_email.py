@@ -11,9 +11,10 @@ from config import emailJson
 sender_email = emailJson["address"]
 password = emailJson["app-password"]
 
-def send_email(person, message_file_name):
+def send_email(person, message_file_name, user_password=""):
     message_path = os.path.join(os.path.dirname(__file__),
-                                'messages/{name}.json'.format(name=message_file_name))
+                                "static","messages","{name}.json"
+                                .format(name=message_file_name))
     with open(message_path, 'r', encoding='utf-8') as f:
         messageJson = json.load(f)
 
@@ -21,7 +22,9 @@ def send_email(person, message_file_name):
     msg['From'] = sender_email
     msg['To'] = person.email
     msg['Subject'] = messageJson["subject"]
-    msg.attach(MIMEText(messageJson["body"].format(person=person), 'plain'))
+    msg.attach(MIMEText(messageJson["body"]
+                        .format(person=person,
+                                password=user_password), 'plain'))
 
     # Set up the SMTP server and send the email
     try:
@@ -34,5 +37,3 @@ def send_email(person, message_file_name):
         print(f'Failed to send email: {e}')
     finally:
         server.quit()
-
-#send_email("kada626@gmail.com", "Haála Kada", "at_signup")

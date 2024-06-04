@@ -3,7 +3,7 @@ import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash
 from datetime import datetime
-from sema import Base, Team, User, Bet, Match
+from sema import Base, Team, User, Candidate
 import os
 
 db_path = os.path.join(os.path.dirname(__file__), 'data/adatok.sqlite')
@@ -23,7 +23,6 @@ def read_teams():
     return teams
 
 def init_db():
-
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
     for t in read_teams():
@@ -31,8 +30,15 @@ def init_db():
                         team_id=t["team_id"]))
         
     admin = User(name="Haála Kada",
-                 email="kada626@gmail.com",
+                 email="kadus@kadus.com",
                  is_admin=True)
+    user = User(name="Kadus",
+                 email="18@asd.com")
     admin.set_password("jelszo")
+    user.set_password("18")
     session.add(admin)
+    session.add(user)
+
+    for i in range(20):
+        session.add(Candidate(name=("Kada"+str(i)),email=str(i)+"@asd.com"))
     session.commit()

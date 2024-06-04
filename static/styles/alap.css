@@ -9,8 +9,11 @@
     --main2: rgb(217, 25, 25);
     --bg-from: rgb(250, 250, 248);
     --bg-to: rgb(216, 222, 255);
+    --blur0_5: rgba(0, 0, 0, 0.05);
     --blur1: rgba(0, 0, 0, 0.1);
     --blur2: rgba(0, 0, 0, 0.2);
+    --blur4: rgba(0, 0, 0, 0.4);
+    --light-blur2: rgba(255, 255, 255, 0.2);
 
     --message-bg-color: rgb(36, 189, 5);
     --error-bg-color: rgb(255, 0, 0);
@@ -50,9 +53,11 @@ body {
 }
 
 main {
-    margin-top: 4rem;
+    margin-top: 4em;
+    margin-bottom: 1em;
 }
 
+/* #region inputok { */
 button, input[type="submit"], input[type="reset"] {
 	background: none;
 	color: inherit;
@@ -70,6 +75,49 @@ input[type="email"] {
     outline: none;
     padding: .7em 2ch;
 }
+
+.input-container {
+    position: relative;
+}
+
+.input-container label {
+    position: absolute;
+}
+
+.input-container input {
+    background-color: var(--text3);
+    border: 1px solid transparent;
+    transition: all .3s ease;
+    min-width: 30ch;
+}
+
+.input-container input:focus {
+    border-color: var(--main1)
+}
+
+.input-container label {
+    border-radius: 2px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    position: absolute;
+    cursor: text;
+    top: 50%;
+    left: 1ch;
+    padding: 1px 3px; 
+    transform: translate(0,-50%);
+    color: var(--text5);
+    transition: .2s;
+}
+.input-container input:focus + label,
+.input-container input.non-empty + label {
+    border-color: var(--main1);
+    background-color: var(--main1);
+    color: var(--text3);
+    font-size: .5em;
+    top: 0;
+}
+
+/* #endregion inputok } */
 
 /*#region modals---------------------------------{*/
     p#error,

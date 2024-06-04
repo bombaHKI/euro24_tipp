@@ -1,4 +1,0 @@
-{
-    "subject": "Az Ön adatai frissültek a tippjátékban!",
-    "body": "Tisztelt {person.name}!\n\nÖrömmel értesítjük, hogy az Euro24 tippjáték fiókjához tartozó adatai sikeresen frissültek.\n\nAz alábbi módosítások történtek a fiókjában:- Név: {person.name}\n- Email: {person.email}\n- Jelszó: (A jelszót biztonsági okokból nem jelenítjük meg)\n\nHa nem Ön kezdeményezte ezeket a változtatásokat, vagy bármilyen kérdése lenne, kérjük lépjen kapcsolatba velünk ezen az e-mail címen: euro24@gmail.com.\n\nÜdvözlettel:\nA Játékszervezők"
-}
