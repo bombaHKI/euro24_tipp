@@ -119,7 +119,7 @@ class Match(Base):
     match_id = Column(Integer, primary_key=True)
     team_H_id = Column(Integer, ForeignKey("team.team_id"), nullable=True)
     team_A_id = Column(Integer, ForeignKey("team.team_id"), nullable=True)
-    start_date = Column(DateTime)
+    start_date = Column(DateTime(timezone=True))
     odds_H = Column(Integer)
     odds_X = Column(Integer)
     odds_A = Column(Integer)

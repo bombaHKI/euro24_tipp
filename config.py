@@ -7,3 +7,4 @@ with open(config_path, 'r', encoding='utf-8') as f:
     appConfigJson = configJson["app"]
     emailJson = configJson["email"]
     apiJson = configJson["API"]
+    adminUser = configJson["admin-user"]

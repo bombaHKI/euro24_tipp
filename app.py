@@ -1,6 +1,9 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from sema import User, Candidate
+import sqlalchemy as sa
+from datetime import datetime, UTC
+from unidecode import unidecode
+from sema import User, Candidate, Match, Bet, points
 from db import session
 from send_email import send_email
 from config import appConfigJson
@@ -22,6 +25,12 @@ def create_app():
 
    return app
 app = create_app()
+
+def to_img_name(str):
+    return unidecode(str).replace(" ","_") + ".svg"
+
+app.jinja_env.filters["to_img_name"] = to_img_name
+app.jinja_env.globals.update(points=points) 
 
 @app.route("/")
 @login_required
@@ -66,10 +75,68 @@ def login():
 def szabalyok():
    return render_template("szabalyok.jinja")
 
-@app.route("/meccsek")
+@app.route("/meccsek", methods=["GET","POST"])
 @login_required
 def meccsek():
-   return render_template("alap_header.jinja")
+   now=datetime.now(UTC)
+   now=datetime(2024,6,19)
+   if request.method == "GET":
+      matches_bets = session.query(Match,Bet) \
+            .outerjoin(Bet,
+                        sa.and_(Bet.match_id==Match.match_id,
+                                Bet.user_id==current_user.user_id))
+      matches_bets = session.query(Match, Bet) \
+                  .outerjoin(Bet, sa.and_(Bet.match_id == Match.match_id, 
+                                          Bet.user_id == current_user.user_id)) \
+                  .filter(Match.team_H_id.isnot(None)) \
+                  .filter(Match.team_A_id.isnot(None)) \
+                  .order_by(Match.start_date) \
+                  .all()
+      
+      return render_template("meccsek.jinja",
+                             now=now,
+                             matches_bets = matches_bets)
+   
+   betsJson = request.json
+   error = ""
+   for match_id, bets in betsJson.items():
+      try:
+         m_id = int(match_id)
+         bet_H = int(bets["bet_H"])
+         bet_A = int(bets["bet_A"])
+      except Exception:
+         error = "Hibás bemenet!"
+         break
+
+      match = Match.query.get(m_id)
+      if match == None:
+         error = "Nem létező meccsre próbált tippelni!"
+         break
+      if match.start_date < now:
+            error = "Már lezártult meccsre próbált tippelni!"
+            break
+
+      bet = Bet.query.filter(Bet.user_id == current_user.user_id,
+                              Bet.match_id == m_id).first()
+      if bet == None:
+         session.add(Bet(user_id = current_user.user_id,
+                        match_id = m_id,
+                        bet_H = bet_H,
+                        bet_A = bet_A))
+      else:
+         bet.bet_H = bet_H
+         bet.bet_A = bet_A
+   
+   if error != "":
+      session.rollback()
+      return {'response': error}
+
+   try:
+      session.commit()
+   except sa.exc.SQLAlchemyError:
+      session.rollback()
+      error = "Hiba az adatbázisba íráskor!"
+   return {'response': error}
 
 @app.route("/allas", methods=["GET","POST"])
 @login_required

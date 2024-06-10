@@ -1,25 +1,3 @@
-function logout() {
-    fetch('/logout', {
-        // Use POST or GET based on your server's logout implementation
-        method: 'POST', 
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        // Include credentials for same-origin requests (important for session management)
-        credentials: 'same-origin' 
-    })
-    .then(response => {
-        if (response.ok) {
-            window.location.href = '/login';
-        } else {
-            console.error('Logout failed', response);
-        }
-    })
-    .catch(error => {
-        console.error('Network error:', error);
-    });
-}
-
 Array.from(document.getElementsByClassName("menu-gomb")).forEach( el => {
     el.addEventListener("click", event => {
         event.target.closest(".menu").classList.toggle("active");

@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash
 from datetime import datetime, timezone
 import os
 import requests
-from config import apiJson
+from config import apiJson, adminUser
 from sema import Base, Team, User, Candidate, Match
 
 db_path = os.path.join(os.path.dirname(__file__), 'data/adatok.sqlite')
@@ -40,7 +40,7 @@ def init_db():
                 match_id = match["id"],
                 team_H_id = match["homeTeam"]["id"],
                 team_A_id = match["awayTeam"]["id"],
-                start_date = datetime.strptime(match["utcDate"][:-1], "%Y-%m-%dT%H:%M:%S"),
+                start_date = datetime.fromisoformat(match["utcDate"].replace('Z', '+00:00')).astimezone(timezone.utc),
                 odds_H = match["odds"]["homeWin"],
                 odds_X = match["odds"]["draw"],
                 odds_A = match["odds"]["awayWin"],
@@ -53,12 +53,12 @@ def init_db():
         print(f"Failed to retrieve data. Status code: {response.status_code}")
         print(response.json())
         
-    admin = User(name="Haála Kada",
-                 email="kadus@kadus.com",
+    admin = User(name=adminUser["name"],
+                 email=adminUser["email"],
                  is_admin=True)
     user = User(name="Kadus",
                  email="18@asd.com")
-    admin.set_password("jelszo")
+    admin.set_password(adminUser["password"])
     user.set_password("18")
     session.add(admin)
     session.add(user)
