@@ -27,7 +27,7 @@ def create_app():
 app = create_app()
 
 def img_url_from_name(str):
-   return url_for('static', filename=f'media/csapatok/{unidecode(str).replace(" ","_")}.svg')
+   return url_for('static', filename=f'media/csapatok/{unidecode(str).lower().replace(" ","_")}.svg')
 
 app.jinja_env.filters["img_url_from_name"] = img_url_from_name
 app.jinja_env.globals.update(points=points) 
