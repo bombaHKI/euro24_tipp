@@ -42,3 +42,6 @@ function dateToString(date) {
         date.getHours() + ":" +
         String(date.getMinutes()).padStart(2,'0') + ".";
 }
+
+window.displayMsg = displayMsg;
+window.dateToString = dateToString;
