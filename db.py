@@ -1,7 +1,6 @@
 import json
 import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker, scoped_session
-from werkzeug.security import generate_password_hash
 from datetime import datetime, timezone
 import os
 import requests
@@ -44,8 +43,8 @@ def init_db():
                 odds_H = match["odds"]["homeWin"],
                 odds_X = match["odds"]["draw"],
                 odds_A = match["odds"]["awayWin"],
-                goals_H = match["score"]["fullTime"]["home"],
-                goals_A = match["score"]["fullTime"]["away"]
+                goals_H = match["score"]["regularTime"]["home"],
+                goals_A = match["score"]["regularTime"]["away"]
             )
             session.add(new_match)
         session.commit()

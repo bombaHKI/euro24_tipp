@@ -3,19 +3,19 @@
 
 {% block head_elements %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin/add_meccsek.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin/users.css') }}" />
 <script src="{{ url_for('static',filename='scripts/admin/add_meccsek.js') }}" defer></script>
 {% endblock head_elements %}
 
 {% block main_content %}
 <main>
-    <p>
-        Ez az oldal még nincs kész.
-        <style>
-            p {
-                text-align: center;
-            }
-        </style>
-    </p>
+    <button class="gomb" onclick="updateMatches()">Meccsek frissítése</button>
+    <style>
+        main {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </main>
 {% endblock main_content %}

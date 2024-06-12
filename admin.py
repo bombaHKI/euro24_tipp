@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from functools import wraps
 from secrets import token_urlsafe
 import db
+from odds import update_matches
 from sema import User, Candidate, Bet, Follow
 from send_email import send_email
 
@@ -121,6 +122,10 @@ def meccsek():
     if request.method == 'GET':
         return render_template('admin/add_meccsek.jinja')
     
-    flash('User created successfully', 'success')
-    return redirect(url_for('admin.admin_dashboard'))
+    try:
+        update_matches()
+        return {"response": "Sikeres frissítés!", "type": "message"}
+    except Exception as e:
+        return {"response": "Valami hiba!", "type": "error", "error": e}
+
 
