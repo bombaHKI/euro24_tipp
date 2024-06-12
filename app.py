@@ -79,7 +79,9 @@ def szabalyok():
 @login_required
 def meccsek():
    now=datetime.now(timezone.utc)
+   print("get\n\n\n")
    if request.method == "GET":
+      print("get\n\n\n")
       matches_bets = session.query(Match,Bet) \
             .outerjoin(Bet,
                         sa.and_(Bet.match_id==Match.match_id,
@@ -91,9 +93,9 @@ def meccsek():
                   .filter(Match.team_A_id.isnot(None)) \
                   .order_by(Match.start_date) \
                   .all()
-      
+      print(matches_bets[0][0].start_date_utc())
       return render_template("meccsek.jinja",
-                             now=now,
+                             now = now,
                              matches_bets = matches_bets)
    
    betsJson = request.json
@@ -111,7 +113,7 @@ def meccsek():
       if match == None:
          error = "Nem létező meccsre próbált tippelni!"
          break
-      if match.start_date < now:
+      if match.start_date_utc() < now:
             error = "Már lezártult meccsre próbált tippelni!"
             break
 

@@ -2,6 +2,7 @@ from sqlalchemy import Column, Boolean, Integer, String, DateTime, ForeignKey, T
 from sqlalchemy.orm import relationship, backref, declarative_base
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
+from datetime import timezone
 
 Base = declarative_base()
 
@@ -125,6 +126,9 @@ class Match(Base):
     odds_A = Column(Integer)
     goals_H = Column(Integer)
     goals_A = Column(Integer)
+
+    def start_date_utc(self):
+        return self.start_date.replace(tzinfo=timezone.utc)
     
     bets = relationship("Bet", backref=backref("match"))
 
@@ -138,7 +142,10 @@ class Match(Base):
     )
     
     def __repr__(self):
-        return f'<M: {self.team_H.name} - {self.team_A.name}; id:{self.match_id}>'
+        if self.team_H_id is not None and self.team_A_id is not None:
+            return f'<M: {self.team_H.name} - {self.team_A.name}; id:{self.match_id}>'
+        else:
+            return '<Meccs ismeretlen résztvevőkkel>'
     def info_dict(self):
         return {"id": self.match_id,
                 "start_date": self.start_date,

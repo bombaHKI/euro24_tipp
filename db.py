@@ -40,7 +40,7 @@ def init_db():
                 match_id = match["id"],
                 team_H_id = match["homeTeam"]["id"],
                 team_A_id = match["awayTeam"]["id"],
-                start_date = datetime.fromisoformat(match["utcDate"].replace('Z', '+00:00')).astimezone(timezone.utc),
+                start_date = datetime.fromisoformat(match["utcDate"]),
                 odds_H = match["odds"]["homeWin"],
                 odds_X = match["odds"]["draw"],
                 odds_A = match["odds"]["awayWin"],
