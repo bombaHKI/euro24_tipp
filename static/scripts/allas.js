@@ -182,7 +182,6 @@ async function showTippek(ev) {
         { transform: "translateX(0)"},
     ];
     mainEl.animate(slide, {duration: 100,easing: "ease-in-out"});
-
     toggleTippekButtons(doShow);    
     document.getElementById("point-indicators-table").classList.toggle("visible", doShow);
 }
