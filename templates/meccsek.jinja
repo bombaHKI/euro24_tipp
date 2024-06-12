@@ -11,7 +11,7 @@
     <main>
         <form id="meccsek" method="post">
         {% for match, bet in matches_bets %}
-        {% set closed = match.start_date_utc <= datetime.now(tiezone.utc) %}
+        {% set closed = match.start_date_utc() <= now %}
             <div class="meccs {{ 'lezarult' if closed }}" data-mid="{{match.match_id}}">
                 <div class="infok">
                     <time datetime="{{match.start_date}} UTC"></time>
