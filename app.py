@@ -79,7 +79,6 @@ def szabalyok():
 @login_required
 def meccsek():
    now=datetime.now(timezone.utc)
-   now=datetime(2024,6,19)
    if request.method == "GET":
       matches_bets = session.query(Match,Bet) \
             .outerjoin(Bet,
@@ -281,4 +280,4 @@ def logout():
    return redirect(url_for("login"))
 
 if __name__ == "__main__":
-   app.run(debug=True)
+   app.run(debug=False)
