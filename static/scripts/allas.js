@@ -76,9 +76,8 @@ function createTableCells(responseData) {
         userId = row.getElementsByClassName("col3")[0].dataset.uid;
         betsOfUser = allBets[userId];
         
-        var cellIdx = 0;
         matchIdsInOrder.forEach( mId => {
-            if (mId in betsOfUser) {
+            if (betsOfUser && mId in betsOfUser) {
                 const bet = betsOfUser[mId];
                 addBetNode(bet.bet_H + " - " + bet.bet_A, bet.points, row);
             }
@@ -337,7 +336,8 @@ async function loadMatchData(m_id) {
             throw new Error(errorMessage);
         }
         const responseData = await response.json();
-        showMatchData(responseData);
+        if (responseData["valid"])
+            showMatchData(responseData);
 
     } catch (error) {
         console.error(error);

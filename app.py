@@ -223,6 +223,8 @@ def tippek_data():
 @login_required
 def meccs_data(m_id):
    match = Match.query.filter(Match.match_id == m_id).first()
+   if not match or None in (match.goals_H, match.goals_A):
+      return {"valid": False}
    matchInfo = match.info_dict()
    matchInfo["kep_H"] = img_url_from_name(match.team_H.name)
    matchInfo["kep_A"] = img_url_from_name(match.team_A.name)
@@ -234,6 +236,8 @@ def meccs_data(m_id):
    avgBets = session.query(sa.func.avg(Bet.bet_H), sa.func.avg(Bet.bet_A))\
                   .filter(Bet.match_id==match.match_id)\
                   .first()
+   if None in avgBets:
+      avgBets = (0,0)
    responseDict["avgBets"] = list(map(lambda x: round(x,2),avgBets))
 
    pointDistribution = {}
@@ -242,6 +246,7 @@ def meccs_data(m_id):
                               .group_by(Bet.points):
       pointDistribution[pointGroup[0]] = pointGroup[1]
    responseDict["pointDistribution"] = pointDistribution
+   responseDict["valid"] = True
    return responseDict
 
 @app.route("/profil", methods=["GET","POST"])
