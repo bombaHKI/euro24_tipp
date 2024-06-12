@@ -95,14 +95,6 @@ exampleForm.addEventListener("reset", () => {
     document.getElementById("form-gombok").classList.remove("visible");
 });
 
-function dateToString(date) {
-    const monthNuerals = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
-    return monthNuerals[date.getMonth()] + ". " +
-        date.getDate() + ". " +
-        date.getHours() + ":" +
-        String(date.getMinutes()).padStart(2,'0') + ".";
-
-}
 Array.from(document.getElementsByTagName("time")).forEach(timeEl => {
     var date = new Date(timeEl.dateTime);
     timeEl.textContent = dateToString(date);

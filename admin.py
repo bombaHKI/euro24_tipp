@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from functools import wraps
 from secrets import token_urlsafe
 import db
-from sema import User, Candidate
+from sema import User, Candidate, Bet, Follow
 from send_email import send_email
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -64,6 +64,9 @@ def delete_user(user_data):
     user = User.query.get(int(id))
     if not user:
         return {"response": "Ehhez az u_id-hoz nincs fiók!", "type": "error"}
+    db.session.query(Follow).filter_by(whom_id=user.user_id).delete()
+    db.session.query(Follow).filter_by(who_id=user.user_id).delete()
+    Bet.query.filter_by(user_id=user.user_id).delete()
     db.session.delete(user)
     db.session.commit()
     return {"response": "Fiók törölve!", "type": "message"}

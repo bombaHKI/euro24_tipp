@@ -8,7 +8,7 @@ import requests
 from config import apiJson, adminUser
 from sema import Base, Team, User, Candidate, Match
 
-db_path = os.path.join(os.path.dirname(__file__), 'data/adatok.sqlite')
+db_path = os.path.join(os.path.dirname(__file__), 'data/adatok_regi.sqlite')
 engine = sa.create_engine('sqlite:///' + db_path)
 session = scoped_session(sessionmaker(autocommit=False,
                                     autoflush=False,

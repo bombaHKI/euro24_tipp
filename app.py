@@ -21,15 +21,15 @@ def create_app():
 
    @login_manager.user_loader
    def load_user(user_id):
-      return User.query.get(int(user_id))
+      return session.get(User, int(user_id))
 
    return app
 app = create_app()
 
-def to_img_name(str):
-    return unidecode(str).replace(" ","_") + ".svg"
+def img_url_from_name(str):
+   return url_for('static', filename=f'media/csapatok/{unidecode(str).replace(" ","_")}.svg')
 
-app.jinja_env.filters["to_img_name"] = to_img_name
+app.jinja_env.filters["img_url_from_name"] = img_url_from_name
 app.jinja_env.globals.update(points=points) 
 
 @app.route("/")
@@ -108,7 +108,7 @@ def meccsek():
          error = "Hibás bemenet!"
          break
 
-      match = Match.query.get(m_id)
+      match = session.get(Match, m_id)
       if match == None:
          error = "Nem létező meccsre próbált tippelni!"
          break
@@ -141,7 +141,107 @@ def meccsek():
 @app.route("/allas", methods=["GET","POST"])
 @login_required
 def allas():
-   return render_template("alap_header.jinja")
+   if request.method == "GET":
+      users = User.query.order_by(User.points.desc()).all()
+      ranking = {} #{ rank: [userX, userY, ...] }
+      currentRank, userIdx, prevPoints = 1, 0, -1
+      for u in users:
+         userIdx += 1
+         if u.points != prevPoints:
+               currentRank = userIdx
+               prevPoints = u.points
+               ranking[currentRank] = []
+         ranking[currentRank].append(u)      
+      return render_template("allas.jinja", ranking=ranking)
+
+   action = request.json["action"]
+   uid = request.json["uid"]
+   error = ""
+   clickedUser = session.get(User, uid)
+   if clickedUser == None or \
+      (action == "follow" and clickedUser in current_user.followings) or \
+      (action == "unfollow" and clickedUser not in current_user.followings):
+      error = "Hibás adat!"
+   else:
+      try:
+         if action == "follow":
+            current_user.followings.append(clickedUser)
+         else:
+            current_user.followings.remove(clickedUser)
+         session.commit()
+      except sa.exc.SQLAlchemyError:
+            session.rollback()
+            error = "Hiba az adatbázisba íráskor!"
+   return {'response': error}
+
+@app.route("/tippek", methods=["GET"])
+@login_required
+def tippek_data():
+   now = datetime.now(UTC)
+
+   responseDict = {} # { [matches], [ bets{id:[bets]} ] }
+   matches_with_scores = Match.query.filter(
+         Match.goals_A.isnot(None), 
+         Match.goals_H.isnot(None)
+      ).order_by(Match.start_date.desc()).all()
+   
+
+   responseDict["matches"] = [
+         {
+            "id": m.match_id,
+            "team_H": m.team_H.name,
+            "team_A": m.team_A.name,
+            "goals_H": m.goals_H,
+            "goals_A": m.goals_A,
+            "start_date": m.start_date,
+            "kep_H": img_url_from_name(m.team_H.name),
+            "kep_A": img_url_from_name(m.team_A.name)
+         }
+         for m in matches_with_scores
+      ]
+   print("eddig eltelt ido: ",(datetime.now(UTC) - now).total_seconds(), " mp") #TODO: ez teszthez kell
+  
+
+   results = session.query(User.user_id, Bet, Match.match_id)\
+                     .join(Bet, Bet.user_id == User.user_id)\
+                     .join(Match, Bet.match_id == Match.match_id)\
+                     .filter(
+                           Match.goals_A.isnot(None),
+                           Match.goals_H.isnot(None)
+                     ).all()
+   responseDict["all_bets"] = {}
+   for user_id, bet, match_id in results:
+      if user_id not in responseDict["all_bets"]:
+         responseDict["all_bets"][user_id] = {}
+      responseDict["all_bets"][user_id][match_id] = bet.info_dict()
+
+   print("eddig eltelt ido: ",(datetime.now(UTC) - now).total_seconds(), " mp") #TODO: ez teszthez kell    
+   return responseDict
+
+@app.route("/meccsinfo/<m_id>", methods=["GET"])
+@login_required
+def meccs_data(m_id):
+   match = Match.query.filter(Match.match_id == m_id).first()
+   matchInfo = match.info_dict()
+   matchInfo["kep_H"] = img_url_from_name(match.team_H.name)
+   matchInfo["kep_A"] = img_url_from_name(match.team_A.name)
+   responseDict = { "matchInfo": matchInfo }
+   responseDict["maxPoint"] = points(match.goals_H,
+                                    match.goals_A,
+                                    match)
+
+   avgBets = session.query(sa.func.avg(Bet.bet_H), sa.func.avg(Bet.bet_A))\
+                  .filter(Bet.match_id==match.match_id)\
+                  .first()
+   responseDict["avgBets"] = list(map(lambda x: round(x,2),avgBets))
+
+   pointDistribution = {}
+   for pointGroup in session.query(Bet.points, sa.func.count(Bet.bet_id))\
+                              .filter(Bet.match_id == match.match_id)\
+                              .group_by(Bet.points):
+      pointDistribution[pointGroup[0]] = pointGroup[1]
+   responseDict["pointDistribution"] = pointDistribution
+   return responseDict
 
 @app.route("/profil", methods=["GET","POST"])
 @login_required

@@ -34,3 +34,11 @@ function displayMsg(msg, type) {
         });
     });
 } //inputok
+
+function dateToString(date) {
+    const monthNuerals = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+    return monthNuerals[date.getMonth()] + ". " +
+        date.getDate() + ". " +
+        date.getHours() + ":" +
+        String(date.getMinutes()).padStart(2,'0') + ".";
+}

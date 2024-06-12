@@ -9,6 +9,36 @@
 
 {% block main_content %}
 <main>
+    <div class="table-container">
+        <h2>Felhasználók</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Email</th>
+                    <th>Művelet</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr id="user-id-{{ user.user_id }}">
+                    <td>
+                        {{ user.name }}
+                    </td>
+                    <td>
+                        {{ user.email }}
+                    </td>
+                    <td>
+                        <div class="gombok">
+                            <button class="gomb delete"
+                                onclick="action('delete-user', {{user.user_id}})">Töröl</button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div id="letrehoz-form-container">
         <h2>Felhasználó hozzáadása</h2>
         <form  id="letrehoz-form" method="POST" action="">
@@ -52,36 +82,6 @@
                 {% endfor %}
             </tbody>
         </table>        
-    </div>
-    <div class="table-container">
-        <h2>Felhasználók</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Név</th>
-                    <th>Email</th>
-                    <th>Művelet</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr id="user-id-{{ user.user_id }}">
-                    <td>
-                        {{ user.name }}
-                    </td>
-                    <td>
-                        {{ user.email }}
-                    </td>
-                    <td>
-                        <div class="gombok">
-                            <button class="gomb delete"
-                                onclick="action('delete-user', {{user.user_id}})">Töröl</button>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
 </main>
 {% endblock main_content %}
