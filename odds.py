@@ -54,7 +54,7 @@ def update_matches():
             match.goals_H = match_data["score"][scoreKey]["home"]
             match.goals_A = match_data["score"][scoreKey]["away"]
             
-            if match.team_H_id is not None and match.team_A_id is not None:
+            if None not in (match.team_H_id, match.team_A_id):
                 x0 = match_data["odds"]["homeWin"]
                 y0 = match_data["odds"]["draw"]
                 z0 = match_data["odds"]["awayWin"]
