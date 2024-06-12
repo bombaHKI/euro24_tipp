@@ -460,5 +460,3 @@ function closeMatchInfo() {
     currentMatchInfoElement = null;
     currentChartInstance.destroy();
 }
-
-loadMatchData(2)
