@@ -18,7 +18,11 @@
                     {% if closed %}
                         <span>Lezárult</span>
                     {%endif%}
-                    <span>Odds: {{match.odds_H}}/{{match.odds_X}}/{{match.odds_A}}</span>
+                    {% if None in (match.odds_H,match.odds_X,match.odds_A) %}                    
+                        <span>Még nincs odds</span>
+                    {% else %}
+                        <span>Odds: {{match.odds_H}}/{{match.odds_X}}/{{match.odds_A}}</span>
+                    {% endif %}
                 </div>
                 <div class="eredmenyjelzo">
                     <span class="csapat-nev">{{match.team_H.name}}</span>
