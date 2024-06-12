@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 import sqlalchemy as sa
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from unidecode import unidecode
 from sema import User, Candidate, Match, Bet, points
 from db import session
@@ -78,7 +78,7 @@ def szabalyok():
 @app.route("/meccsek", methods=["GET","POST"])
 @login_required
 def meccsek():
-   now=datetime.now(UTC)
+   now=datetime.now(timezone.utc)
    now=datetime(2024,6,19)
    if request.method == "GET":
       matches_bets = session.query(Match,Bet) \
@@ -177,7 +177,7 @@ def allas():
 @app.route("/tippek", methods=["GET"])
 @login_required
 def tippek_data():
-   now = datetime.now(UTC)
+   now = datetime.now(timezone.utc)
 
    responseDict = {} # { [matches], [ bets{id:[bets]} ] }
    matches_with_scores = Match.query.filter(
@@ -199,7 +199,7 @@ def tippek_data():
          }
          for m in matches_with_scores
       ]
-   print("eddig eltelt ido: ",(datetime.now(UTC) - now).total_seconds(), " mp") #TODO: ez teszthez kell
+   print("eddig eltelt ido: ",(datetime.now(timezone.utc) - now).total_seconds(), " mp") #TODO: ez teszthez kell
   
 
    results = session.query(User.user_id, Bet, Match.match_id)\
@@ -215,7 +215,7 @@ def tippek_data():
          responseDict["all_bets"][user_id] = {}
       responseDict["all_bets"][user_id][match_id] = bet.info_dict()
 
-   print("eddig eltelt ido: ",(datetime.now(UTC) - now).total_seconds(), " mp") #TODO: ez teszthez kell    
+   print("eddig eltelt ido: ",(datetime.now(timezone.utc) - now).total_seconds(), " mp") #TODO: ez teszthez kell    
    return responseDict
 
 @app.route("/meccsinfo/<m_id>", methods=["GET"])
