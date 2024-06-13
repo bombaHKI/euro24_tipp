@@ -50,7 +50,9 @@ if (loginForm) {
     
             const responseJson = await response.json();
             if ( actionType === "login" && responseJson.type !== "error") {
-                document.location.assign(document.location.origin + responseJson.url);
+                setTimeout(function(){
+                    document.location.href = document.location.origin + responseJson.url;
+                },100);
             }
             else
                 displayMsg(responseJson.response, responseJson.type);
