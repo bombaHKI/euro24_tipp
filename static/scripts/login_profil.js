@@ -51,7 +51,8 @@ if (loginForm) {
             const responseJson = await response.json();
             if ( actionType === "login" && responseJson.type !== "error") {
                 setTimeout(function(){
-                    document.location.href = document.location.origin + responseJson.url;
+                    document.location.assign(document.location.origin + responseJson.url);
+                    displayMsg("Sikeres bejelentkezés", "message");
                 },100);
             }
             else
