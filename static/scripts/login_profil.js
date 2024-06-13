@@ -49,8 +49,9 @@ if (loginForm) {
             }
     
             const responseJson = await response.json();
-            if ( actionType === "login" && responseJson.type !== "error")     
-                window.location.href = "/";
+            if ( actionType === "login" && responseJson.type !== "error") {
+                document.location.assign(document.location.origin + responseJson.url);
+            }
             else
                 displayMsg(responseJson.response, responseJson.type);
         } catch (error) {

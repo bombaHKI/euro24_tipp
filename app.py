@@ -53,6 +53,7 @@ def login():
          error = "Jelszó vagy email nem stimmelt!"
       else:
          login_user(user)
+         return {"url": url_for("index"), "type": "message" }
    elif formJSON["action"] == "signup":
       name =  formJSON["username"].strip()
       if User.query.filter(User.email == email).first() != None:
@@ -287,4 +288,4 @@ def logout():
    return redirect(url_for("login"))
 
 if __name__ == "__main__":
-   app.run(debug=False)
+   app.run(debug=True)
