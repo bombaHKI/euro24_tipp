@@ -38,5 +38,7 @@ function headerClassDecider() {
                     (logo.getBoundingClientRect().left - mainNav.getBoundingClientRect().right)) < 30)
         header.classList.add("small-header");
 }
-window.addEventListener("resize", () => headerClassDecider());
-headerClassDecider();
+document.addEventListener('DOMContentLoaded', () => {
+    headerClassDecider();
+    window.addEventListener("resize", headerClassDecider);
+});
