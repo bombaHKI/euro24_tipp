@@ -54,7 +54,7 @@ input::-webkit-inner-spin-button {
     grid-template-rows: auto auto;
     grid-template-columns: 
         minmax(min-content, 1fr) 
-        repeat(3,minmax(0,auto))
+        repeat(3,minmax(min-content,auto))
         minmax(min-content,1fr);
     grid-template-areas:
         "flagH betH - betA flagA"
