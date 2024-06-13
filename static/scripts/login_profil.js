@@ -50,7 +50,13 @@ if (loginForm) {
     
             const responseJson = await response.json();
             if (responseJson.url) {
-                document.location.assign(responseJson.url);
+                try {
+                    document.location.assign(responseJson.url);
+                } catch (e) {
+                    console.error("Error with location.assign, falling back to location.href:", e);
+                    document.location.href = responseJson.url;
+                }
+                return;
             }
             else
                 displayMsg(responseJson.response, responseJson.type);
