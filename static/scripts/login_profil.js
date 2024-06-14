@@ -50,7 +50,7 @@ if (loginForm) {
     
             const responseJson = await response.json();
             const redirectUrl = responseJson.url;
-            // return;
+            console.log(redirectUrl, Boolean(redirectUrl));
             if (redirectUrl) {
                 try {
                     document.location.assign(redirectUrl);
