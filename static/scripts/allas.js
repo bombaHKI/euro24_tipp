@@ -1,4 +1,18 @@
-const tableContainer = document.getElementById('table-container');
+var tableContainer;
+document.addEventListener('DOMContentLoaded', () => {
+    tableContainer = document.getElementById('table-container');
+    rows = Array.from(tableContainer.getElementsByTagName("tr"));
+    
+    tableContainer.querySelectorAll(".col3")
+    .forEach( th => th.addEventListener('mouseleave', () => {
+        b = th.getElementsByTagName("button")[0];
+        if (b)
+            b.blur();
+    })
+    );
+
+    rows = Array.from(tableContainer.getElementsByTagName("tr"));
+});
 
 function scrollToDiv(str) {
     if (str === 'user')
@@ -10,7 +24,7 @@ function scrollToDiv(str) {
 }
 
 var didTippekLoaded = false;
-var rows = Array.from(tableContainer.getElementsByTagName("tr"));
+var rows;
 var addedNodes = [];
 
 async function loadTippekJson() {
@@ -238,14 +252,6 @@ function showFollowButton(ev) {
     var button = ev.currentTarget.getElementsByTagName("button")[0];
     button.focus();
 }
-
-tableContainer.querySelectorAll(".col3")
-    .forEach( th => th.addEventListener('mouseleave', () => {
-        b = th.getElementsByTagName("button")[0];
-        if (b)
-            b.blur();
-    })
-    );
 
 async function follow(ev) {
     ev.stopPropagation();

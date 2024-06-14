@@ -1,8 +1,10 @@
+var fedlap;
+function switchForm() {
+    fedlap.classList.toggle("signup");
+}
 document.addEventListener('DOMContentLoaded', () => {
-    const fedlap = document.getElementById("fedlap");
-    function switchForm() {
-        fedlap.classList.toggle("signup");
-    }
+    fedlap = document.getElementById("fedlap");
+
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
         const signupForm = document.getElementById("signup-form");

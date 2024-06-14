@@ -1,6 +1,28 @@
-document.querySelectorAll('input').forEach( input => {
-    input.addEventListener('input', inputChanged);
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input').forEach( input => {
+        input.addEventListener('input', inputChanged);
+    });
+
+    const exampleForm = document.getElementById("meccsek");
+    exampleForm.addEventListener("submit", handleFormSubmit);
+    exampleForm.addEventListener("reset", () => {
+        Array.from(exampleForm.getElementsByTagName("input"))
+            .forEach(input => {
+                if ( input.defaultValue === "" )
+                    input.required = false;
+            });
+        document.getElementById("form-gombok").classList.remove("visible");
+    });
+
+    Array.from(document.getElementsByTagName("time")).forEach(timeEl => {
+        var date = new Date(timeEl.dateTime);
+        timeEl.textContent = dateToString(date);
+    });
+    if ( document.querySelector(".meccs:not(.lezarult)")) {
+        document.querySelector(".meccs:not(.lezarult)").scrollIntoView({ behavior: 'smooth' });
+    }
 });
+
 function inputChanged(ev) {
     var parent = ev.currentTarget.parentElement;
     var input1 = parent.getElementsByTagName("input")[0];
@@ -83,22 +105,4 @@ async function handleFormSubmit(event) {
 	} catch (error) {
 		console.error(error);
 	}
-}
-const exampleForm = document.getElementById("meccsek");
-exampleForm.addEventListener("submit", handleFormSubmit);
-exampleForm.addEventListener("reset", () => {
-    Array.from(exampleForm.getElementsByTagName("input"))
-        .forEach(input => {
-            if ( input.defaultValue === "" )
-                input.required = false;
-        });
-    document.getElementById("form-gombok").classList.remove("visible");
-});
-
-Array.from(document.getElementsByTagName("time")).forEach(timeEl => {
-    var date = new Date(timeEl.dateTime);
-    timeEl.textContent = dateToString(date);
-});
-if ( document.querySelector(".meccs:not(.lezarult)")) {
-    document.querySelector(".meccs:not(.lezarult)").scrollIntoView({ behavior: 'smooth' });
 }

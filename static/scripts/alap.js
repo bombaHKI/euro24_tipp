@@ -12,7 +12,19 @@ function displayMsg(msg, type) {
     },2000);
 }
 
-{ //inputok
+function dateToString(date) {
+    const monthNuerals = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+    return monthNuerals[date.getMonth()] + ". " +
+        date.getDate() + ". " +
+        date.getHours() + ":" +
+        String(date.getMinutes()).padStart(2,'0') + ".";
+}
+
+window.displayMsg = displayMsg;
+window.dateToString = dateToString;
+
+//inputok
+document.addEventListener('DOMContentLoaded', () => {
     function labelClicked(event) {
         const label = event.target;
         label.parentElement.children[0].focus();
@@ -33,15 +45,5 @@ function displayMsg(msg, type) {
             );
         });
     });
-} //inputok
-
-function dateToString(date) {
-    const monthNuerals = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
-    return monthNuerals[date.getMonth()] + ". " +
-        date.getDate() + ". " +
-        date.getHours() + ":" +
-        String(date.getMinutes()).padStart(2,'0') + ".";
-}
-
-window.displayMsg = displayMsg;
-window.dateToString = dateToString;
+}); 
+//inputok
