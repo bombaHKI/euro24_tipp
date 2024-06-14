@@ -49,17 +49,20 @@ if (loginForm) {
             }
     
             const responseJson = await response.json();
-            if (responseJson.url) {
+            const redirectUrl = responseJson.url;
+            // return;
+            if (redirectUrl) {
                 try {
-                    document.location.assign(responseJson.url);
+                    document.location.assign(redirectUrl);
                 } catch (e) {
                     console.error("Error with location.assign, falling back to location.href:", e);
-                    document.location.href = responseJson.url;
+                    document.location.href = redirectUrl;
                 }
                 return;
             }
-            else
+            else {
                 displayMsg(responseJson.response, responseJson.type);
+            }
         } catch (error) {
             displayMsg("Valami hiba történt!","error");
             console.error(error);
