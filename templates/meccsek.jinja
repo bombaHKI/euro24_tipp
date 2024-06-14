@@ -44,14 +44,20 @@
                 </div>
                 {% if closed %}
                     <div class="infok">
-                        <span>Végeredmény: {{match.goals_H}} - {{match.goals_A}}</span>
-                        <span>
-                            {% if bet %}
-                                {{bet.points}}
-                            {% else %}
-                                0
-                            {% endif %} pont
-                        </span>
+                        {% if None in (match.goals_H, match.goals_A) %} 
+                            <span></span>                    
+                            <span>Végeredmény még nem ismert.</span>
+                            <span></span>                    
+                        {% else %}
+                            <span>Végeredmény: {{match.goals_H}} - {{match.goals_A}}</span>
+                            <span>
+                                {% if bet %}
+                                    {{bet.points}}
+                                {% else %}
+                                    0
+                                {% endif %} pont
+                            </span>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>

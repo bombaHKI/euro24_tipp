@@ -40,6 +40,7 @@ input::-webkit-inner-spin-button {
     justify-content: center;
     opacity: .5;
     transition: all .2s;
+    text-wrap: nowrap;
 }
 .infok :first-child { justify-content: start;}
 .infok :last-child { justify-content: end;}

@@ -83,9 +83,7 @@ def szabalyok():
 @login_required
 def meccsek():
    now=datetime.now(timezone.utc)
-   print("get\n\n\n")
    if request.method == "GET":
-      print("get\n\n\n")
       matches_bets = session.query(Match,Bet) \
             .outerjoin(Bet,
                         sa.and_(Bet.match_id==Match.match_id,
@@ -118,7 +116,7 @@ def meccsek():
          error = "Nem létező meccsre próbált tippelni!"
          break
       if match.start_date_utc() < now:
-            error = "Már lezártult meccsre próbált tippelni!"
+            error = "Már lezárult meccsre próbált tippelni!"
             break
 
       bet = Bet.query.filter(Bet.user_id == current_user.user_id,
