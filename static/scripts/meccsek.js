@@ -18,8 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
         var date = new Date(timeEl.dateTime);
         timeEl.textContent = dateToString(date);
     });
-    if ( document.querySelector(".meccs:not(.lezarult)")) {
-        document.querySelector(".meccs:not(.lezarult)").scrollIntoView({ behavior: 'smooth' });
+
+    var lezarultak = document.querySelectorAll(".lezarult");
+    if ( lezarultak ) {
+        lezarultak[lezarultak.length -1].scrollIntoView({ behavior: 'smooth' });
     }
 });
 

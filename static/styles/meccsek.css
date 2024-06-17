@@ -26,7 +26,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     flex-direction: column;
     gap: 1em;    
-    scroll-margin-top: 8rem;
+    scroll-margin-top: 7rem;
 }
 
 .infok {
