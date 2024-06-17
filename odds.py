@@ -55,18 +55,21 @@ def update_matches():
             match.goals_A = match_data["score"][scoreKey]["away"]
             
             if None not in (match.team_H_id, match.team_A_id):
-                x0 = match_data["odds"]["homeWin"]
-                y0 = match_data["odds"]["draw"]
-                z0 = match_data["odds"]["awayWin"]
-                if None not in (x0,y0,z0):
-                    x0 = int(x0)
-                    y0 = int(y0)
-                    z0 = int(z0)
-                    x1, y1, z1 = convert_odds(x0,y0,z0)
-                    
-                    match.odds_H = x1
-                    match.odds_X = y1
-                    match.odds_A = z1
+                try:
+                    x0 = match_data["odds"]["homeWin"]
+                    y0 = match_data["odds"]["draw"]
+                    z0 = match_data["odds"]["awayWin"]
+                    if None not in (x0,y0,z0):
+                        x0 = int(x0)
+                        y0 = int(y0)
+                        z0 = int(z0)
+                        x1, y1, z1 = convert_odds(x0,y0,z0)
+                        
+                        match.odds_H = x1
+                        match.odds_X = y1
+                        match.odds_A = z1
+                except KeyError:
+                    print("\n\nNincs odds package!!!\n\n")
 
                 if no_score and None not in (match.goals_A, match.goals_H):
                     update_points(match)
