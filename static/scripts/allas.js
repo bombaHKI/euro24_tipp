@@ -58,6 +58,8 @@ function createTableCells(responseData) {
         clone.getElementsByClassName("__kep-link")[0].src = m.kep_H;
         clone.getElementsByClassName("__kep-link")[1].src = m.kep_A;
         clone.getElementsByClassName("__eredmeny-str")[0].textContent = 
+            [m.goals_H, m.goals_A].some(el => el === null)?
+            "-":
             m.goals_H + " - " + m.goals_A;
         clone.dataset.mid = m.id;
         matchIdsInOrder.push(m.id);

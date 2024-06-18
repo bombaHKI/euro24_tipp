@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Boolean, Integer, String, DateTime, ForeignKey, Table, UniqueConstraint
+from sqlalchemy import Column, Boolean, Integer, String, DateTime, ForeignKey, Table, UniqueConstraint, func
 from sqlalchemy.orm import relationship, backref, declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 from datetime import timezone
@@ -127,8 +128,13 @@ class Match(Base):
     goals_H = Column(Integer)
     goals_A = Column(Integer)
 
+    @hybrid_property
     def start_date_utc(self):
         return self.start_date.replace(tzinfo=timezone.utc)
+
+    @start_date_utc.expression
+    def start_date_utc(cls):
+        return func.strftime('%Y-%m-%d %H:%M:%S', cls.start_date)
     
     bets = relationship("Bet", backref=backref("match"))
 

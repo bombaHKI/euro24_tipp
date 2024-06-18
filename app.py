@@ -95,7 +95,7 @@ def meccsek():
                   .filter(Match.team_A_id.isnot(None)) \
                   .order_by(Match.start_date) \
                   .all()
-      print(matches_bets[0][0].start_date_utc())
+      print(matches_bets[0][0].start_date_utc)
       return render_template("meccsek.jinja",
                              now = now,
                              matches_bets = matches_bets)
@@ -115,7 +115,7 @@ def meccsek():
       if match == None:
          error = "Nem létező meccsre próbált tippelni!"
          break
-      if match.start_date_utc() < now:
+      if match.start_date_utc < now:
             error = "Már lezárult meccsre próbált tippelni!"
             break
 
@@ -184,8 +184,9 @@ def tippek_data():
 
    responseDict = {} # { [matches], [ bets{id:[bets]} ] }
    matches_with_scores = Match.query.filter(
-         Match.goals_A.isnot(None), 
-         Match.goals_H.isnot(None)
+         Match.start_date_utc < now
+         # Match.goals_A.isnot(None), 
+         # Match.goals_H.isnot(None)
       ).order_by(Match.start_date.desc()).all()
    
 
@@ -209,8 +210,9 @@ def tippek_data():
                      .join(Bet, Bet.user_id == User.user_id)\
                      .join(Match, Bet.match_id == Match.match_id)\
                      .filter(
-                           Match.goals_A.isnot(None),
-                           Match.goals_H.isnot(None)
+                           Match.start_date_utc < now
+                           # Match.goals_A.isnot(None),
+                           # Match.goals_H.isnot(None)
                      ).all()
    responseDict["all_bets"] = {}
    for user_id, bet, match_id in results:
