@@ -69,20 +69,20 @@ function createTableCells(responseData) {
     addedNodes.push(addedRow);
     
     // tippek beírása
-    const node = document.createElement("td");
-    const spanEl = document.createElement("span");
+    const tdTemplate = document.getElementById("td-template");
     function addBetNode(scoreStr, points, toRow) {
-        const clone = node.cloneNode(true);
-        const spanClone = spanEl.cloneNode(true);
+        const clone = tdTemplate.content.cloneNode(true);
+        const spanClone = clone.querySelector("span");
         spanClone.textContent = scoreStr;
-        clone.dataset.points = points;
-        clone.appendChild(spanClone);
-        clone.addEventListener("animationend", () => {
-            clone.style.scale = "1"; clone.classList.remove("animation-visible");
-        } );
-        clone.addEventListener("mousedown", tableScrollMouseDown);
-        addedRow.push(clone);
-        toRow.appendChild(clone);
+        const tdElement = clone.querySelector("td");
+        tdElement.dataset.points = points;
+        tdElement.addEventListener("animationend", () => {
+            tdElement.style.scale = "1"; 
+            tdElement.classList.remove("animation-visible");
+        });        
+        // tdElement.addEventListener("mousedown", tableScrollMouseDown);
+        addedRow.push(tdElement);
+        toRow.appendChild(tdElement);
     }
 
     allBets = responseData.all_bets;

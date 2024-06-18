@@ -115,6 +115,11 @@
                         {% endfor %}
                     </tbody>
                 {% endfor %}
+                <template id="td-template">
+                    <td data-points="" onclick="highlightPoints(event)">
+                        <span></span>
+                    </th>
+                </template>
             </table>
         </div>
     </div>
@@ -123,7 +128,7 @@
             Színek - Pontok
         </div>
         {% for i in range(0,18) %}
-            <div class="td" data-points={{i}} onclick="highlightPoints(event,{{i}})">
+            <div class="td" data-points={{i}} onclick="highlightPoints(event)">
                 {{i}}
             </div>
         {% endfor %}

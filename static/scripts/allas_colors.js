@@ -48,9 +48,10 @@ function createPointColorIndicatorRules() {
 }
 createPointColorIndicatorRules();
 
-function highlightPoints(e,i) {
+function highlightPoints(e) {
     e.stopPropagation();
     const target = e.target;
+    const i = target.dataset.points;
 
     target.toggleAttribute("data-highlighted");
     if (target.hasAttribute("data-highlighted")) 
