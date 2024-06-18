@@ -79,8 +79,8 @@ function createTableCells(responseData) {
         tdElement.addEventListener("animationend", () => {
             tdElement.style.scale = "1"; 
             tdElement.classList.remove("animation-visible");
-        });        
-        // tdElement.addEventListener("mousedown", tableScrollMouseDown);
+        });  
+        tdElement.addEventListener("mousedown", tableScrollMouseDown);
         addedRow.push(tdElement);
         toRow.appendChild(tdElement);
     }
