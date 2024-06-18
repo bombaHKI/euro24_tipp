@@ -70,7 +70,7 @@
                     </tr>
                 </thead>
                 {% for rank, users in ranking.items() %}
-                    <tbody>
+                    <tbody onmousedown="tableScrollMouseDown(event)">
                         <tr>
                         <th scope="row" class="col1" rowspan="{{users|length}}">
                             {{rank}}.

@@ -286,6 +286,7 @@ td span {
     position: absolute;
     transform: translate(-50%,-50%);
     transition: transform .2s, scale .2s;
+    pointer-events: none;
 }
 @media(hover: hover) and (pointer: fine) {
     td:hover span {

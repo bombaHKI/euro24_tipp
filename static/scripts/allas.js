@@ -79,8 +79,7 @@ function createTableCells(responseData) {
         tdElement.addEventListener("animationend", () => {
             tdElement.style.scale = "1"; 
             tdElement.classList.remove("animation-visible");
-        });  
-        tdElement.addEventListener("mousedown", tableScrollMouseDown);
+        });
         addedRow.push(tdElement);
         toRow.appendChild(tdElement);
     }
@@ -304,23 +303,25 @@ let shrinkCol3Limit = 250;
 
 function tableScrollMouseDown(e) {
     e.stopPropagation();
-    e.preventDefault();
     isDownOnTable = true;
     startX = e.pageX - tableContainer.offsetLeft;
     startY = e.pageY - tableContainer.offsetTop;
     scrollLeft = tableContainer.scrollLeft;
     scrollTop = tableContainer.scrollTop;
     document.body.style.cursor = "url('https://maps.gstatic.com/mapfiles/closedhand_8_8.cur'), grab";
-    Array.from(document.body.children)
-        .forEach(elem => { elem.style.pointerEvents = "none"; });
 }
-document.addEventListener('mouseup', () => {
+document.addEventListener('mouseup', (e) => {
     if (isDownOnTable) {
-        isDownOnTable = false;    
+        isDownOnTable = false;
         document.body.style.cursor = "auto";
+        
+        const x = e.pageX - tableContainer.offsetLeft;
+        const walkX = (x - startX);
+        const y = e.pageY - tableContainer.offsetTop;
+        const walkY = (y - startY);
         Array.from(document.body.children)
             .forEach(elem => { elem.style.pointerEvents = "auto"; });
-  }
+    }
 });
 document.addEventListener('mousemove', (e) => {
     if(isDownOnTable) {
@@ -330,6 +331,10 @@ document.addEventListener('mousemove', (e) => {
         const walkY = (y - startY);
         tableContainer.scrollLeft = scrollLeft - walkX;
         tableContainer.scrollTop = scrollTop - walkY;
+        if (Math.abs(walkX) + Math.abs(walkY) > 10) {
+            Array.from(document.body.children)
+                .forEach(elem => { elem.style.pointerEvents = "none"; });
+        }
     }
 });
 
