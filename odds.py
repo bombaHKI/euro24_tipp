@@ -60,9 +60,9 @@ def update_matches():
                     y0 = match_data["odds"]["draw"]
                     z0 = match_data["odds"]["awayWin"]
                     if None not in (x0,y0,z0):
-                        x0 = int(x0)
-                        y0 = int(y0)
-                        z0 = int(z0)
+                        x0 = float(x0)
+                        y0 = float(y0)
+                        z0 = float(z0)
                         x1, y1, z1 = convert_odds(x0,y0,z0)
                         
                         match.odds_H = x1

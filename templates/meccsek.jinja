@@ -35,9 +35,9 @@
                         </span>
                         <span class="score">{{ '' if no_bet else bet.bet_A }}</span>
                     {% else %}
-                        <input class="score" name="bet_H-{{match.match_id}}" type="number" placeholder="?" min="0" step="1" max="99" value="{{bet.bet_H}}">
+                        <input class="score" name="bet_H-{{match.match_id}}" type="number" placeholder="?" min="0" step="1" max="15" value="{{bet.bet_H}}">
                         <span class="kotojel">-</span>
-                        <input class="score" name="bet_A-{{match.match_id}}" type="number" placeholder="?" min="0" step="1" max="99" value="{{bet.bet_A}}">
+                        <input class="score" name="bet_A-{{match.match_id}}" type="number" placeholder="?" min="0" step="1" max="15" value="{{bet.bet_A}}">
                     {% endif %}
                     <img src="{{ match.team_A.name|img_url_from_name }}">
                     <span class="csapat-nev">{{match.team_A.name}}</span>

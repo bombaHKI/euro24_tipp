@@ -2,11 +2,13 @@
 
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
+import sqlalchemy as sa
 from functools import wraps
 from secrets import token_urlsafe
+from datetime import datetime, timezone
 import db
-from odds import update_matches
-from sema import User, Candidate, Bet, Follow
+from odds import update_matches, convert_odds
+from sema import User, Candidate, Bet, Follow, Match
 from send_email import send_email
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -119,13 +121,57 @@ def handle_candidate(action, candidate_id):
 @login_required
 @admin_required
 def meccsek():
+    now=datetime.now(timezone.utc)
     if request.method == 'GET':
-        return render_template('admin/add_meccsek.jinja')
+        coming_matches = Match.query \
+            .filter(Match.team_H_id.isnot(None)) \
+            .filter(Match.team_A_id.isnot(None)) \
+            .filter(Match.start_date_utc > now) \
+            .order_by(Match.start_date) \
+            .all()
+        return render_template('admin/add_meccsek.jinja',
+                                coming_matches = coming_matches)
     
-    try:
-        update_matches()
-        return {"response": "Sikeres frissítés!", "type": "message"}
-    except Exception as e:
-        return {"response": "Valami hiba!", "type": "error", "error": e}
+    data = request.json
+    if data["action"] == "update-matches":
+        try:
+            update_matches()
+            return {"response": "Meccsek frissítése sikeres!", "type": "message"}
+        except Exception as e:
+            return {"response": "Valami hiba!", "type": "error", "error": e}
 
+    elif data["action"] == "update-odds":
+        error = ""
+        for match_id, odds in data["odds"].items():
+            try:
+                m_id = int(match_id)
+                odds_H = float(odds["odds_H"])
+                odds_X = float(odds["odds_X"])
+                odds_A = float(odds["odds_A"])
+            except Exception:
+                error = "Hibás bemenet!"
+                break
 
+            match = db.session.get(Match, m_id)
+            if match == None:
+                error = "Nem létező meccsre próbált oddsot adni!"
+                break
+            if match.start_date_utc < now:
+                    error = "Már lezárult meccsre próbált  oddsot adni!"
+                    break
+            
+            x1, y1, z1 = convert_odds(odds_H,odds_X,odds_A)                        
+            match.odds_H = x1
+            match.odds_X = y1
+            match.odds_A = z1
+    
+        if error != "":
+            db.session.rollback()
+            return {'response': error}
+        try:
+            db.session.commit()
+        except sa.exc.SQLAlchemyError as e:
+            db.session.rollback()
+            error = "Hiba az adatbázisba íráskor!"
+            return {'response': error, "error": e}
+        return {"response": "Oddsok frissítése sikeres", "type": "message"}
