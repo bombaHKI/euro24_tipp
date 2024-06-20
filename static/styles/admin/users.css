@@ -3,7 +3,7 @@ main {
     flex-wrap: wrap;
     gap: max(.5em, 5%);
     align-items: baseline;
-    justify-content: center;
+    justify-content: safe center;
 }
 
 .table-container, #letrehoz-form-container {
