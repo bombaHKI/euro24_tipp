@@ -14,8 +14,20 @@ function displayMsg(msg, type) {
 
 function dateToString(date) {
     const monthNuerals = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
-    return monthNuerals[date.getMonth()] + ". " +
-        date.getDate() + ". " +
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    const daysUntil = (date-today)/1000/60/60/24;
+    var dateString;
+    if ( -1 <= daysUntil && daysUntil < 0)
+        dateString = "Tegnap ";
+    else if (0 <= daysUntil && daysUntil < 1)
+        dateString = "Ma ";
+    else if (1 <= daysUntil && daysUntil < 2)
+        dateString = "Holnap ";
+    else
+        dateString = monthNuerals[date.getMonth()] + ". " + date.getDate() + ". ";
+        
+    return dateString + 
         date.getHours() + ":" +
         String(date.getMinutes()).padStart(2,'0') + ".";
 }
