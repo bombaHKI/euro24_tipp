@@ -19,15 +19,17 @@ function dateToString(date) {
     const daysUntil = (date-today)/1000/60/60/24;
     var dateString;
     if ( -1 <= daysUntil && daysUntil < 0)
-        dateString = "Tegnap ";
+        dateString = "Tegnap";
     else if (0 <= daysUntil && daysUntil < 1)
-        dateString = "Ma ";
+        dateString = "Ma";
     else if (1 <= daysUntil && daysUntil < 2)
-        dateString = "Holnap ";
+        dateString = "Holnap";
     else
-        dateString = monthNuerals[date.getMonth()] + ". " + date.getDate() + ". ";
+        dateString = monthNuerals[date.getMonth()] + ". " 
+        + date.getDate() + ". " +
+        date.toLocaleString(window.navigator.language, {weekday: 'short'}) + ".";
         
-    return dateString + 
+    return dateString + " " + 
         date.getHours() + ":" +
         String(date.getMinutes()).padStart(2,'0') + ".";
 }
