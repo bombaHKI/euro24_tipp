@@ -132,7 +132,7 @@ input:focus:not(:invalid) {
     visibility: hidden;
     z-index: 2;
     position: fixed;
-    bottom: -5rem;
+    bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
     display: grid;
@@ -141,9 +141,10 @@ input:focus:not(:invalid) {
     background-color: unset;
     outline: unset;
     transition: bottom .5s, visibility 0s 1s;
+    text-wrap: nowrap;
 }
 #form-gombok.visible {
-    bottom: 1rem;
+    bottom: calc(100% - 6em);
     visibility: visible;
     transition: bottom .4s cubic-bezier(.46,.03,.4,1.7), visibility 0s;
 }
