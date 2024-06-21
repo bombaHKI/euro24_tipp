@@ -142,6 +142,7 @@ input:focus:not(:invalid) {
     outline: unset;
     transition: bottom .5s, visibility 0s 1s;
     text-wrap: nowrap;
+    min-width: 34ch;
 }
 #form-gombok.visible {
     bottom: 1em;
