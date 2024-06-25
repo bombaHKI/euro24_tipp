@@ -30,21 +30,21 @@ Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 
 ## Média
 ### Login oldal
-<img src="media/login.PNG" height="500">
-<img src="media/login_filled.PNG" height="500">
+<img src="media/login.PNG" height="300">
+<img src="media/login_filled.PNG" height="200">
 
 ### Bejelentkezés után
-<img src="media/udv.PNG" height="500">
+<img src="media/udv.PNG" height="300">
 
 ### Szabályok oldal
-<img src="media/szabalyok.PNG" height="500">
+<img src="media/szabalyok.PNG" height="300">
 
 ### Meccsek oldal
-<img src="media/meccsek.PNG" height="500">
+<img src="media/meccsek.PNG" height="300">
 
 ### Állás oldal
-<img src="media/allas1.PNG" height="500">
-<img src="media/allas2.PNG" height="500">
-<img src="media/allas3.PNG" height="500">
+<img src="media/allas1.PNG" height="300">
+<img src="media/allas2.PNG" height="300">
+<img src="media/allas3.PNG" height="300">
 
 
