@@ -21,9 +21,9 @@ Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 - **Oddsok**: A meccsekre kapható plusz pontok frissítése valós fogadóirodák által adott oddsok alapján.
 
 ## Használt technológiák
-- **Frontend**: Plain JavaScript, Jinja (HTML), CSS (külső könyvtárak nélkül)
-- **Backend**: Python Flask
-- **Adatbázis**: SQLAlchemy with MySQL
+- **Frontend**: JavaScript, Jinja (HTML), CSS. Külső könyvtárak nélkül.
+- **Backend**: Python, Flask
+- **Adatbázis**: SQLAlchemy, MySQL
 
 ## Megjegyzés
 Az oldal eredetije megtalálható [Molnár-Sáska Zoltán](https://github.com/mszoli), volt osztálytársam [honlapján](http://molnar-saska.hu/). Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról, átgondolt megjelenéssel és funkciókkal.
