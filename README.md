@@ -25,8 +25,8 @@ Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 - **Backend**: Python Flask
 - **Adatbázis**: SQLAlchemy with MySQL
 
-   ## Megjegyzés
-   Az oldal eredetije megtalálható [Molnár-Sáska Zoltán](https://github.com/mszoli), volt osztálytársam [honlapján](http://molnar-saska.hu/). Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról, átgondolt megjelenéssel és funkciókkal.
+## Megjegyzés
+Az oldal eredetije megtalálható [Molnár-Sáska Zoltán](https://github.com/mszoli), volt osztálytársam [honlapján](http://molnar-saska.hu/). Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról, átgondolt megjelenéssel és funkciókkal.
 
 ## Média
 ### Login oldal
