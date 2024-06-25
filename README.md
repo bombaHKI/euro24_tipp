@@ -31,5 +31,6 @@ Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 ## Média
 ### Login oldal
 ![Login oldal](media/login.PNG)
+<img src="media/login.PNG" height="100">
 
 
