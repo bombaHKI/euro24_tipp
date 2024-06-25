@@ -1,3 +1,4 @@
+
 # Euro 24 tippjáték oldal
 ## Leírás
 
@@ -24,7 +25,8 @@ A meccsekre kapott pontok függnek a meccs végkimenetelének előzetes esélyei
 - **Adatbázis**: SQLAlchemy with MySQL
 
 ## Elérhető
+Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 
-### Prerequisites
+### Feltételek
 - Python 3.x
 - MySQL
