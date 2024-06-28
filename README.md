@@ -29,7 +29,7 @@ jelszó: guest
 - **Adatbázis**: SQLAlchemy, MySQL
 
 ## Megjegyzés
-Az oldal [eredetijét](http://molnar-saska.hu/) Molnár-Sáska Zoltán, volt osztálytársam készítette. Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról a kódbázis ismerete nélkül, átgondolt megjelenéssel és funkciókkal.
+Az oldal [eredetijét](http://molnar-saska.hu/) Molnár-Sáska Zoltán, volt osztálytársam készítette. Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról a kódbázis ismerete nélkül, újragondolt megjelenéssel és funkciókkal.
 
 ## Média
 ### Login oldal
