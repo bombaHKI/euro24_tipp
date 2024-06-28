@@ -55,10 +55,10 @@ def init_db():
     admin = User(name=adminUser["name"],
                  email=adminUser["email"],
                  is_admin=True)
-    user = User(name="Kadus",
-                 email="18@asd.com")
+    user = User(name="Guest",
+                 email="guest@guest.com")
     admin.set_password(adminUser["password"])
-    user.set_password("18")
+    user.set_password("guest")
     session.add(admin)
     session.add(user)
 
