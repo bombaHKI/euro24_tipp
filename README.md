@@ -4,6 +4,7 @@
 
 A projekt a 2024-es UEFA Európabajnokságra készült. A játék lényege eltalálni a meccsek pontos végkimenetelét és a jó tippekért pontokat gyűjteni.
 A meccsekre kapott pontok függnek a meccs végkimenetelének előzetes esélyeitől, valamint a lőtt gólok számától.
+Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 
 ## Funkciók
 
@@ -20,13 +21,39 @@ A meccsekre kapott pontok függnek a meccs végkimenetelének előzetes esélyei
 - **Oddsok**: A meccsekre kapható plusz pontok frissítése valós fogadóirodák által adott oddsok alapján.
 
 ## Használt technológiák
-- **Frontend**: Plain JavaScript, Jinja (HTML), CSS
-- **Backend**: Python Flask
-- **Adatbázis**: SQLAlchemy with MySQL
+- **Frontend**: JavaScript, Jinja (HTML), CSS. Külső könyvtárak nélkül.
+- **Backend**: Python, Flask
+- **Adatbázis**: SQLAlchemy, MySQL
 
-## Elérhető
-Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
+## Megjegyzés
+Az oldal eredetije megtalálható [Molnár-Sáska Zoltán](https://github.com/mszoli), volt osztálytársam [honlapján](http://molnar-saska.hu/). Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról, átgondolt megjelenéssel és funkciókkal.
 
-### Feltételek
-- Python 3.x
-- MySQL
+## Média
+### Login oldal
+<p align="middle">
+   <img src="media/login.PNG" height="250">
+   <img src="media/login_filled.PNG" height="250">
+</p>
+
+### Bejelentkezés után
+<p align="middle">
+   <img src="media/udv.PNG" height="250">
+</p>
+
+### Szabályok oldal
+<p align="middle">
+   <img src="media/szabalyok.PNG" height="250">
+</p>
+
+### Meccsek oldal
+<p align="middle">
+   <img src="media/meccsek.PNG" height="250">
+</p>
+
+### Állás oldal
+<p align="middle">
+   <img src="media/allas1.PNG" height="250">
+   <img src="media/allas2.PNG" height="250">
+   <img src="media/allas3.PNG" height="250">
+</p>
+
