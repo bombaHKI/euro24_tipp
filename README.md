@@ -5,6 +5,9 @@
 A projekt a 2024-es UEFA Európabajnokságra készült. A játék lényege eltalálni a meccsek pontos végkimenetelét és a jó tippekért pontokat gyűjteni.
 A meccsekre kapott pontok függnek a meccs végkimenetelének előzetes esélyeitől, valamint a lőtt gólok számától.
 Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
+Vendég belépési adatok:
+email: guest@guest.com
+jelszó: guest
 
 ## Funkciók
 
@@ -26,7 +29,7 @@ Az oldal az alábbi linken érhető el: <https://hkadus.pythonanywhere.com>.
 - **Adatbázis**: SQLAlchemy, MySQL
 
 ## Megjegyzés
-Az oldal eredetije megtalálható [Molnár-Sáska Zoltán](https://github.com/mszoli), volt osztálytársam [honlapján](http://molnar-saska.hu/). Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról, átgondolt megjelenéssel és funkciókkal.
+Az oldal [eredetijét](http://molnar-saska.hu/) Molnár-Sáska Zoltán, volt osztálytársam készítette. Az eredeti PHP-ban íródott, én ezt készítettem el teljesen nulláról a kódbázis ismerete nélkül, átgondolt megjelenéssel és funkciókkal.
 
 ## Média
 ### Login oldal
